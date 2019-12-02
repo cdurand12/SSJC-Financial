@@ -47,7 +47,7 @@ stream.on('data', (response) => {
         if (message) {
             try {
                 var quote = JSON.parse(message)[0];
-                console.log(quote);
+                console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
             } catch (error) {
                 partialMessage = message;
             }
