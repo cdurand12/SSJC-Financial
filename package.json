@@ -1,0 +1,15 @@
+{
+  "name": "ssjc-financial",
+  "version": "0.0.1",
+  "description": "An easy-to-use financial advice tool",
+  "main": "iexrest.js",
+  "scripts": {
+    "test": "start"
+  },
+  "author": "SSJC",
+  "license": "MIT",
+  "dependencies": {
+    "cordova": "^9.0.0",
+    "electron": "^7.1.3"
+  }
+}
