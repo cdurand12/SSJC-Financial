@@ -38,7 +38,7 @@ function createWindow () {
         appIcon = `${__dirname}/img/logo.png`;
     }
 
-    const browserWindowOpts = Object.assign({}, cdvElectronSettings.browserWindow, { icon: appIcon });
+    const browserWindowOpts = Object.assign({}, cdvElectronSettings.browserWindow, { icon: appIcon },{webPreferences:{nodeIntegration:true}} );
     mainWindow = new BrowserWindow(browserWindowOpts);
 
     // and load the index.html of the app.

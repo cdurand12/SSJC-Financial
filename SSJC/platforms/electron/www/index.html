@@ -1,7 +1,6 @@
-<!DOCTYPE html>
 <html>
 <head>
-  <h1>SSJC Financial</h1>
+<h1>SSJC Financial</h1>
   <title>SSJC Financial</title>
   <meta charset="UTF-8" />
 	<style type="text/css">
@@ -14,9 +13,16 @@
 	</style>
 </head>
 <body>
-    <table style="width:24%">
+  <script src="js/iexrest.js"></script>
+    <button onclick="iexconnect()">Start Live Update</button>
+    <table style="width:24%" id="stocktable">
+      <tr>
+        <th>Stock</th>
+        <th>Asking Price</th>
+        <th>Bidding Price</th>
+      </tr>
         <tr>
-            <td width="1%"><input style="text-transform: uppercase" type="text" placeholder="STCK1" id="stck1" onchange='test(document.getElementById("stck1"))' /></td>
+            <td width="1%"><input style="text-transform: uppercase" type="text" placeholder="STCK1" id="stck1" /></td>
             <td width="1%"><input disabled="true" type="text" placeholder="Asking Price" value="" id="ask1" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="bid1" /></td>
         </tr>
@@ -31,24 +37,25 @@
             <td><input disabled="true" type="text" placeholder="Bid Price" id="bid3" /></td>
         </tr>
     </table>
-    <img src="https://image.flaticon.com/icons/svg/149/149145.svg" height="30" width="30" vspace="5" onclick="addRow()" />
+    <img src="https://image.flaticon.com/icons/svg/149/149145.svg" height="30" width="30" vspace="5" onclick="insertRow()" />
     <script type="text/javascript">
-        function test(name) {
-            stocks = [["AAPL", "12", "15"],["MSFT", 10, 14],["IBM", 20, 25]];
-            var name1 = name.value;
-            if (name1 == "AAPL") {
-                document.getElementById("ask1").value = stocks[0][1];
-                document.getElementById("bid1").value = stocks[0][2];
-            }
-            else if (name1 == "MSFT"){
-                document.getElementById("ask1").value = stocks[1][1];
-                document.getElementById("bid1").value = stocks[1][2];
-            }
-            else if (name1 == "IBM"){
-                document.getElementById("ask1").value = stocks [2][1];
-                document.getElementById("bid1").value = stocks [2][2];
-            }
-        }
+        // function test(name) {
+        //     stocks = [["AAPL", "12", "15"],["MSFT", 10, 14],["IBM", 20, 25]];
+        //     var name1 = name.value;
+        //     if (name1 == "AAPL") {
+        //         document.getElementById("ask1").value = stocks[0][1];
+        //         document.getElementById("bid1").value = stocks[0][2];
+        //     }
+        //     else if (name1 == "MSFT"){
+        //         document.getElementById("ask1").value = stocks[1][1];
+        //         document.getElementById("bid1").value = stocks[1][2];
+        //     }
+        //     else if (name1 == "IBM"){
+        //         document.getElementById("ask1").value = stocks [2][1];
+        //         document.getElementById("bid1").value = stocks [2][2];
+        //     }
+        // }
     </script>
+
 </body>
 </html>
