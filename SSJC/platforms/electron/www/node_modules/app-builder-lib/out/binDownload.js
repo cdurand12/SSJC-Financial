@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.download = download;
-exports.getBinFromGithub = getBinFromGithub;
+exports.getBinFromUrl = getBinFromUrl;
 exports.getBin = getBin;
 
 function _builderUtil() {
@@ -29,9 +29,20 @@ function download(url, output, checksum) {
   return (0, _builderUtil().executeAppBuilder)(args);
 }
 
-function getBinFromGithub(name, version, checksum) {
+function getBinFromUrl(name, version, checksum) {
   const dirName = `${name}-${version}`;
-  return getBin(dirName, `https://github.com/electron-userland/electron-builder-binaries/releases/download/${dirName}/${dirName}.7z`, checksum);
+  let url;
+
+  if (process.env.ELECTRON_BUILDER_BINARIES_DOWNLOAD_OVERRIDE_URL) {
+    url = process.env.ELECTRON_BUILDER_BINARIES_DOWNLOAD_OVERRIDE_URL + "/" + dirName + ".7z";
+  } else {
+    const baseUrl = process.env.NPM_CONFIG_ELECTRON_BUILDER_BINARIES_MIRROR || process.env.npm_config_electron_builder_binaries_mirror || process.env.npm_package_config_electron_builder_binaries_mirror || process.env.ELECTRON_BUILDER_BINARIES_MIRROR || "https://github.com/electron-userland/electron-builder-binaries/releases/download/";
+    const middleUrl = process.env.NPM_CONFIG_ELECTRON_BUILDER_BINARIES_CUSTOM_DIR || process.env.npm_config_electron_builder_binaries_custom_dir || process.env.npm_package_config_electron_builder_binaries_custom_dir || process.env.ELECTRON_BUILDER_BINARIES_CUSTOM_DIR || dirName;
+    const urlSuffix = dirName + ".7z";
+    url = `${baseUrl}${middleUrl}/${urlSuffix}`;
+  }
+
+  return getBin(dirName, url, checksum);
 }
 
 function getBin(name, url, checksum) {
