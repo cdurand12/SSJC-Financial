@@ -1,2 +1,3 @@
-SSJC/platforms/electron/www/node_modules/
-node_module/
+SSJC\platforms\electron\www\node_modules\
+SSJC\platforms\electron\www\build\
+node_module\
