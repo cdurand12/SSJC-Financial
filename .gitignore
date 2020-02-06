@@ -1,5 +1,4 @@
-SSJC\platforms\electron\www\node_modules\**
-SSJC\platforms\electron\www\build\
+SSJC/platforms/electron/www/node_modules/**
 SSJC/platforms/electron/build/HelloCordova Setup 1.0.0.exe
 SSJC/platforms/electron/build/HelloCordova Setup 1.0.0.exe.blockmap
 SSJC/platforms/electron/build/win-unpacked/resources/app.asar

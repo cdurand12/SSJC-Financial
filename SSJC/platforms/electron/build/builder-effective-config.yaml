@@ -1,7 +1,7 @@
 directories:
-  output: 'C:\Users\samul\Documents\GitHub\SSJC-Financial\SSJC\platforms\electron\build'
-  buildResources: 'C:\Users\samul\Documents\GitHub\SSJC-Financial\SSJC\platforms\electron\build-res'
-  app: 'C:\Users\samul\Documents\GitHub\SSJC-Financial\SSJC\platforms\electron\www'
+  output: 'C:\Users\John\Documents\GitHub\SSJC-Financial\SSJC\platforms\electron\build'
+  buildResources: 'C:\Users\John\Documents\GitHub\SSJC-Financial\SSJC\platforms\electron\build-res'
+  app: 'C:\Users\John\Documents\GitHub\SSJC-Financial\SSJC\platforms\electron\www'
 appId: io.cordova.hellocordova
 productName: HelloCordova
 electronVersion: 4.0.1

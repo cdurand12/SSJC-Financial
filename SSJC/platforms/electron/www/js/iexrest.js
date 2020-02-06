@@ -4,6 +4,9 @@ var stream;
 var partialMessage;
 
 //var stocks = 'AAPL';
+
+// this is the STOCK 1
+
 function iexconnect(){
 
 function connect() {
