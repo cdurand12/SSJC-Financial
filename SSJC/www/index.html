@@ -11,19 +11,21 @@
       table, th, td { border: 1px solid black; border-collapse: collapse; table-layout: auto; }
   	  input { border: 1px solid white; }
 	</style>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="js/iexrest.js"></script>
+
 </head>
 <body>
 
-  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="js/iexrest.js"></script>
+
     <button onclick="iexconnect()">Start Live Update</button>
     <button onclick="getStocks()">GetStocks Test</button>
     <table style="width:24%" id="stocktable">
-      <tr>
+      <!-- <tr> -->
         <th>Stock</th>
         <th>Asking Price</th>
         <th>Bidding Price</th>
-      </tr>
+      <!-- </tr> -->
         <tr>
             <td width="1%"><input style="text-transform: uppercase" type="text" placeholder="STCK1" id="stck1" class="stock" /></td>
             <td width="1%"><input disabled="true" type="text" placeholder="Asking Price" value="" id="ask1" /></td>
@@ -40,25 +42,26 @@
             <td><input disabled="true" type="text" placeholder="Bid Price" id="bid3" /></td>
         </tr>
     </table>
-    <img src="https://image.flaticon.com/icons/svg/149/149145.svg" height="30" width="30" vspace="5" onclick="insertRow()" />
-    <script type="text/javascript">
-        // function test(name) {
-        //     stocks = [["AAPL", "12", "15"],["MSFT", 10, 14],["IBM", 20, 25]];
-        //     var name1 = name.value;
-        //     if (name1 == "AAPL") {
-        //         document.getElementById("ask1").value = stocks[0][1];
-        //         document.getElementById("bid1").value = stocks[0][2];
-        //     }
-        //     else if (name1 == "MSFT"){
-        //         document.getElementById("ask1").value = stocks[1][1];
-        //         document.getElementById("bid1").value = stocks[1][2];
-        //     }
-        //     else if (name1 == "IBM"){
-        //         document.getElementById("ask1").value = stocks [2][1];
-        //         document.getElementById("bid1").value = stocks [2][2];
-        //     }
-        // }
-    </script>
+    <img src="https://image.flaticon.com/icons/svg/149/149145.svg" height="30" width="30" vspace="5" onclick="addrow()"</button>
+    <img src="https://image.flaticon.com/icons/svg/1783/1783121.svg" height="30" width="30" vspace="5" onclick="deleterow()"</button>
+    <script>
+    function addrow(){
+      var table = document.getElementById("stocktable");
+      var row = table.insertRow(-1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      cell1.setAttribute("style", "text-transform: uppercase");
+      cell1.setAttribute("type", "text");
+      cell1.setAttribute("placeholder", "STCK1");
+      cell2.innerHTML = "Asking Price";
+      cell3.innerHTML = "Bid Price";
+    }
+
+    function deleterow() {
+  document.getElementById("stocktable").deleteRow(-1);
+}
+  </script>
 
 </body>
 </html>
