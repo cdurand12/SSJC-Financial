@@ -59,7 +59,9 @@
     }
 
     function deleterow() {
-  document.getElementById("stocktable").deleteRow(-1);
+      if(document.getElementById("stocktable").rows.length > 2){
+        document.getElementById("stocktable").deleteRow(-1);
+      }
 }
   </script>
 
