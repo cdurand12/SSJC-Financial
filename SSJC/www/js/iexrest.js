@@ -8,7 +8,10 @@ var partialMessage;
 // this is the STOCK 1
 
 function iexconnect(){
-
+  if(stream){
+  stream.destroy();
+  console.log("stream stopped");
+  }
 function connect() {
   //var stocks = getStocks();
   var stocks = document.getElementById("stck1").value;
@@ -73,6 +76,11 @@ function wait () {
 };
 
 wait();
+
+function stopStream(){
+
+}
+
 
 }
 
