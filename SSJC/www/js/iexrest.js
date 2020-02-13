@@ -8,10 +8,12 @@ var partialMessage;
 // this is the STOCK 1
 
 function iexconnect(){
+
   if(stream){
-  stream.destroy();
+  stream.abort();
   console.log("stream stopped");
   }
+
 function connect() {
   //var stocks = getStocks();
   var stocks = document.getElementById("stck1").value;
@@ -77,33 +79,15 @@ function wait () {
 
 wait();
 
-function stopStream(){
-
-}
-
-
-}
-
 function getStocks(){
-  var stockList;
-  $('#stocktable tr').each(function() {
-    stockList += $(this).find(".stock").html();
-  });
-  console.log(stocksList);
+  var table = document.getElementById('stocktable');
+  var stocksList;
+  for(var i=0; i < table.rows[i]; i++){
+    if(table.rows[i].cells[0].innertext != NULL){
+      stocksList += ((table.rows[i].cells[0].innerText) + ",");
+    }
+  }
   return stocksList;
 }
 
-// function getStocks(){
-//   var table = document.getElementById('stocktable'),
-//   rows = table.getsElementByTagName("tr"), i, j, cells, stocksList;
-//
-//   for(var i=1, j = rows.length; i < j; i++){
-//     console.log("working");
-//     cells = rows[i].getElementsByTagName('td');
-//     if (!cells.length) {
-//         continue;
-//     }
-//     stockList+= cells[0].innerHTML;
-//   }
-//   return stocksList;
-// }
+}
