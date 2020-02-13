@@ -3,21 +3,15 @@ const request = require('request');
 var stream;
 var partialMessage;
 
-//var stocks = 'AAPL';
-
-// this is the STOCK 1
-
 function iexconnect(){
 
   if(stream){
-  stream.abort();
+  stream.destroy();
   console.log("stream stopped");
   }
 
 function connect() {
-  //var stocks = getStocks();
   var stocks = document.getElementById("stck1").value;
-  //var stocks = 'AAPL,'
   console.log(stocks);
     stream = request({
         url: (`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`),
