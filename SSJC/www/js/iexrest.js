@@ -14,11 +14,15 @@ function addrow(){
   var td3 = document.createElement("td");
   var td4 = document.createElement("td");
   var td5 = document.createElement("td");
+  var td6 = document.createElement("td");
+  var td7 = document.createElement("td");
   row.appendChild(td1);
   row.appendChild(td2);
   row.appendChild(td3);
   row.appendChild(td4);
   row.appendChild(td5);
+  row.appendChild(td6);
+  row.appendChild(td7);
 
   var cell1 = document.createElement("input");
   cell1.setAttribute("style", "text-transform: uppercase");
@@ -48,11 +52,25 @@ function addrow(){
   cell4.setAttribute("id", text)
   td4.appendChild(cell4);
   var cell5 = document.createElement("input");
-  cell5.setAttribute("type", "text");
   cell5.setAttribute("disabled", "true");
-  cell5.setAttribute("placeholder", "Total Value");
-  //cell5.setAttribute("id", "value4")
-  td5.appendChild(cell5);
+  cell5.setAttribute("type", "text");
+  cell5.setAttribute("placeholder", "Change");
+  text = "change" + rowNum.toString();
+  cell5.setAttribute("id", text)
+  td5.appendChild(cell4);
+  var cell6 = document.createElement("input");
+  cell6.setAttribute("disabled", "true");
+  cell6.setAttribute("type", "text");
+  cell6.setAttribute("placeholder", "Change %");
+  text = "percent" + rowNum.toString();
+  cell6.setAttribute("id", text)
+  td6.appendChild(cell6);
+  var cell7 = document.createElement("input");
+  cell7.setAttribute("type", "text");
+  cell7.setAttribute("disabled", "true");
+  cell7.setAttribute("placeholder", "Total Value");
+  //cell7.setAttribute("id", "value4")
+  td7.appendChild(cell7);
 }
 
 function deleterow() {
@@ -116,8 +134,6 @@ stream.on('data', (response) => {
 
     chunkArray.forEach(function (message) {
             try {
-              console.log(document.getElementById("stocktable").rows.length);
-
               for(var i = 1; i < document.getElementById("stocktable").rows.length; i++){
                 var quote = JSON.parse(message)[0];
                 console.log(quote);
@@ -125,6 +141,8 @@ stream.on('data', (response) => {
                 if(quote.symbol == document.getElementById("stck" + i).value){
                   document.getElementById("ask" + i).value = quote.latestPrice;
                   document.getElementById("bid" + i).value = quote.iexBidPrice;
+                  document.getElementById("change" + i).value = quote.change;
+                  document.getElementById("percent" + i).value = quote.changePercent;
                 }
                 //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
                 }
