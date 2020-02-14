@@ -49,21 +49,21 @@ function addrow(){
   cell4.setAttribute("type", "text");
   cell4.setAttribute("placeholder", "Bid Price");
   text = "bid" + rowNum.toString();
-  cell4.setAttribute("id", text)
+  cell4.setAttribute("id", text);
   td4.appendChild(cell4);
   var cell5 = document.createElement("input");
   cell5.setAttribute("disabled", "true");
   cell5.setAttribute("type", "text");
   cell5.setAttribute("placeholder", "Change");
   text = "change" + rowNum.toString();
-  cell5.setAttribute("id", text)
-  td5.appendChild(cell4);
+  cell5.setAttribute("id", text);
+  td5.appendChild(cell5);
   var cell6 = document.createElement("input");
   cell6.setAttribute("disabled", "true");
   cell6.setAttribute("type", "text");
   cell6.setAttribute("placeholder", "Change %");
   text = "percent" + rowNum.toString();
-  cell6.setAttribute("id", text)
+  cell6.setAttribute("id", text);
   td6.appendChild(cell6);
   var cell7 = document.createElement("input");
   cell7.setAttribute("type", "text");
@@ -80,6 +80,15 @@ function deleterow() {
   }
 
 }
+
+function deletespecificrow() {
+      // event.target will be the input element.
+      var td = event.target.parentNode;
+      var tr = td.parentNode; // the row to be removed
+      tr.parentNode.removeChild(tr);
+}
+
+
 
 function iexconnect(){
 
@@ -144,6 +153,7 @@ stream.on('data', (response) => {
                   document.getElementById("change" + i).value = quote.change;
                   document.getElementById("percent" + i).value = quote.changePercent;
                 }
+                //JSON example https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4
                 //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
                 }
             } catch (error) {
