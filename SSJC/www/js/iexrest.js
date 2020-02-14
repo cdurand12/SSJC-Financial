@@ -22,6 +22,7 @@ function addrow(){
 
   var cell1 = document.createElement("input");
   cell1.setAttribute("style", "text-transform: uppercase");
+  cell1.setAttribute("oninput", "this.value = this.value.toUpperCase()");
   cell1.setAttribute("type", "text");
   var text = "stck" + rowNum.toString();
   cell1.setAttribute("placeholder", text);
