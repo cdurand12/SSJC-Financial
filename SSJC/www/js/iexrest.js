@@ -65,12 +65,12 @@ function deleterow() {
 function iexconnect(){
 
   if(stream){
-  stream.destroy();
+  stream.abort();
   console.log("stream stopped");
   }
 
 function connect() {
-  var stocks = document.getElementById("stck1").value;
+  var stocks = getStocks();
   console.log(stocks);
     stream = request({
         url: (`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`),
@@ -115,10 +115,18 @@ stream.on('data', (response) => {
 
     chunkArray.forEach(function (message) {
             try {
+              console.log(document.getElementById("stocktable").rows.length);
+
+              for(var i = 1; i < document.getElementById("stocktable").rows.length; i++){
                 var quote = JSON.parse(message)[0];
-                document.getElementById("ask1").value = quote.latestPrice;
-                document.getElementById("bid1").value = quote.iexBidPrice;
-                console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
+                console.log(quote);
+                console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
+                if(quote.symbol == document.getElementById("stck" + i).value){
+                  document.getElementById("ask" + i).value = quote.latestPrice;
+                  document.getElementById("bid" + i).value = quote.iexBidPrice;
+                }
+                //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
+                }
             } catch (error) {
                 partialMessage = message;
             }
@@ -131,16 +139,20 @@ function wait () {
 };
 
 wait();
+}
+
 
 function getStocks(){
   var table = document.getElementById('stocktable');
-  var stocksList;
-  for(var i=0; i < table.rows[i]; i++){
-    if(table.rows[i].cells[0].innertext != NULL){
-      stocksList += ((table.rows[i].cells[0].innerText) + ",");
+  var stocksList = "";
+  var tableLength = document.getElementById("stocktable").rows.length;
+  console.log(tableLength);
+  for(var i=1; i < tableLength; i++){
+    if(document.getElementById("stck" + i).value != ""){
+      stocksList += (document.getElementById("stck" + i).value + ",");
     }
   }
-  return stocksList;
-}
-
+  var returnList = stocksList.substring(0, stocksList.length - 1);
+  console.log(returnList);
+  return returnList;
 }
