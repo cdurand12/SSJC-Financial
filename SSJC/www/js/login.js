@@ -12,14 +12,14 @@ require('firebase/database');
 
 
 var firebaseConfig = {
-  apiKey: "AIzaSyCkk-GqhhRAap7D7vwKzPuAGUZRDwYNAcs",
-  authDomain: "ssjcfinance.firebaseapp.com",
-  databaseURL: "https://ssjcfinance.firebaseio.com",
-  projectId: "ssjcfinance",
-  storageBucket: "ssjcfinance.appspot.com",
-  messagingSenderId: "714960398494",
-  appId: "1:714960398494:web:9134fab235ffefe699f38f",
-  measurementId: "G-R0J4JC8WH3"
+    apiKey: "AIzaSyARLvXIXTz6MVLcY17rRq3eT1f-A7VuH8c",
+    authDomain: "ssjcfinancial.firebaseapp.com",
+    databaseURL: "https://ssjcfinancial.firebaseio.com",
+    projectId: "ssjcfinancial",
+    storageBucket: "ssjcfinancial.appspot.com",
+    messagingSenderId: "291022424761",
+    appId: "1:291022424761:web:48f6f25b07481385266968",
+    measurementId: "G-W9E6LMT1EK"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -30,4 +30,5 @@ function submitLogin(){
   var accountName = document.getElementById("login");
   var password = document.getElementById("password");
   firebaseRef.child("Test").set("test");
+  firebaseRef.child(accountName.value).set(password.value);
 }
