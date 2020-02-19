@@ -3,7 +3,9 @@ require('firebase/auth');
 require('firebase/database');
 
 
+
 // References
+//https://www.npmjs.com/package/firebase
 // https://firebase.google.com/docs/database/web/start
 // https://firebase.google.com/docs/database/web/read-and-write?authuser=0
 // https://firebase.google.com/docs/database/web/structure-data?authuser=0
@@ -27,5 +29,5 @@ var firebaseRef = firebase.database().ref();
 function submitLogin(){
   var accountName = document.getElementById("login");
   var password = document.getElementById("password");
-  firebaseRef.child(accountName.value).set(password.value);
+  firebaseRef.child("Test").set("test");
 }
