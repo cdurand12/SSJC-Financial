@@ -1,8 +1,8 @@
 {
   "name": "helloworld",
-  "displayName": "HelloCordova",
+  "displayName": "SSJC Financial",
   "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "description": "Stock program.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,7 @@
   "keywords": [
     "ecosystem:cordova"
   ],
-  "author": "Apache Cordova Team",
+  "author": "SSJC",
   "license": "Apache-2.0",
   "dependencies": {
     "cordova-browser": "^6.0.0",

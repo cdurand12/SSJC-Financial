@@ -9,6 +9,7 @@ function addrow(){
   var table = document.getElementById("stocktable");
   var row = table.insertRow(-1);
   rowNum = rowNum + 1;
+  var text = "row" + rowNum.toString();
 
   var td1 = document.createElement("td");
   var td2 = document.createElement("td");
@@ -31,7 +32,7 @@ function addrow(){
   cell1.setAttribute("style", "text-transform: uppercase");
   cell1.setAttribute("oninput", "this.value = this.value.toUpperCase()");
   cell1.setAttribute("type", "text");
-  var text = "stck" + rowNum.toString();
+  text = "stck" + rowNum.toString();
   cell1.setAttribute("placeholder", text);
   cell1.setAttribute("id", text);
   td1.appendChild(cell1);
@@ -39,13 +40,14 @@ function addrow(){
   cell2.setAttribute("type", "number");
   cell2.setAttribute("placeholder", "# of Stocks");
   cell2.setAttribute("min","0");
-  //cell2.setAttribute("onchange")
+  text = "ask" + rowNum.toString();
+  var funcText = "calcValue(" + text + ")";
+  cell2.setAttribute("onchange", funcText);
   td2.appendChild(cell2);
   var cell3 = document.createElement("input");
   cell3.setAttribute("disabled", "true");
   cell3.setAttribute("type", "text");
   cell3.setAttribute("placeholder", "Asking Price");
-  text = "ask" + rowNum.toString();
   cell3.setAttribute("id", text);
   td3.appendChild(cell3);
   var cell4 = document.createElement("input");
@@ -73,15 +75,25 @@ function addrow(){
   cell7.setAttribute("type", "text");
   cell7.setAttribute("disabled", "true");
   cell7.setAttribute("placeholder", "Total Value");
-  //cell7.setAttribute("id", "value4")
+  text = "value" + rowNum.toString();
+  cell7.setAttribute("id", text)
   td7.appendChild(cell7);
-  var cell8 = document.createElement("img");
-  cell8.setAttribute("src","img/redx.png");
-  cell8.setAttribute("onclick","deletespecificrow()");
-  cell8.setAttribute("height","10");
-  cell8.setAttribute("width","10");
-  cell8.setAttribute("vspace","5");
-  xbutton.appendChild(cell8);
+  var xb = document.createElement("img");
+  xb.setAttribute("src", "img/redx.png");
+  xb.setAttribute("onclick", "deletespecificrow()");
+  xb.setAttribute("height", "10");
+  xb.setAttribute("width", "10");
+  xb.setAttribute("vspace", "5");
+  xbutton.appendChild(xb);
+}
+
+function calcValue(asknumber)
+{
+  var row = asknumber.toString();
+  console.log(row);
+  var num = document.getElementById(row);
+  row = asknumber - "ask";
+  console.log(row);
 }
 
 function deleterow() {
@@ -92,7 +104,6 @@ function deleterow() {
 }
 
 function deletespecificrow() {
-      // event.target will be the input element.
       var td = event.target.parentNode;
       var tr = td.parentNode;
       tr.parentNode.removeChild(tr);
@@ -114,8 +125,7 @@ function connect() {
             'Connection': 'keep-alive',
             'Content-Type': 'text/event-stream',
             'Cache-Control': 'no-cache'
-        }
-    })
+        }})
 }
 connect();
 
@@ -171,13 +181,10 @@ stream.on('data', (response) => {
 console.log("data recieved");
 });
 
-function wait () {
-    setTimeout(wait, 1000);
-};
+function wait () { setTimeout(wait, 1000); };
 
 wait();
 }
-
 
 function getStocks(){
   var table = document.getElementById('stocktable');
