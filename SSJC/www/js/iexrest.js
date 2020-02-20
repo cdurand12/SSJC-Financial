@@ -16,6 +16,7 @@ function addrow(){
   var td5 = document.createElement("td");
   var td6 = document.createElement("td");
   var td7 = document.createElement("td");
+  var xbutton = document.createElement("td");
   row.appendChild(td1);
   row.appendChild(td2);
   row.appendChild(td3);
@@ -23,6 +24,7 @@ function addrow(){
   row.appendChild(td5);
   row.appendChild(td6);
   row.appendChild(td7);
+  row.appendChild(xbutton);
 
   var cell1 = document.createElement("input");
   cell1.setAttribute("style", "text-transform: uppercase");
@@ -71,6 +73,13 @@ function addrow(){
   cell7.setAttribute("placeholder", "Total Value");
   //cell7.setAttribute("id", "value4")
   td7.appendChild(cell7);
+  var cell8 = document.createElement("img");
+  cell8.setAttribute("src","img/redx.png");
+  cell8.setAttribute("onclick","deletespecificrow()");
+  cell8.setAttribute("height","10");
+  cell8.setAttribute("width","10");
+  cell8.setAttribute("vspace","5");
+  xbutton.appendChild(cell8);
 }
 
 function deleterow() {
@@ -84,7 +93,7 @@ function deleterow() {
 function deletespecificrow() {
       // event.target will be the input element.
       var td = event.target.parentNode;
-      var tr = td.parentNode; // the row to be removed
+      var tr = td.parentNode;
       tr.parentNode.removeChild(tr);
 }
 
