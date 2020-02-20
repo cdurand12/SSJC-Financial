@@ -5,6 +5,7 @@ var partialMessage;
 
 var rowNum = 3;
 function addrow(){
+  if(rowNum == 50){ return; }
   var table = document.getElementById("stocktable");
   var row = table.insertRow(-1);
   rowNum = rowNum + 1;
@@ -35,8 +36,9 @@ function addrow(){
   cell1.setAttribute("id", text);
   td1.appendChild(cell1);
   var cell2 = document.createElement("input");
-  cell2.setAttribute("type", "text");
+  cell2.setAttribute("type", "number");
   cell2.setAttribute("placeholder", "# of Stocks");
+  cell2.setAttribute("min","0");
   //cell2.setAttribute("onchange")
   td2.appendChild(cell2);
   var cell3 = document.createElement("input");
@@ -87,7 +89,6 @@ function deleterow() {
     document.getElementById("stocktable").deleteRow(-1);
     rowNum = rowNum - 1;
   }
-
 }
 
 function deletespecificrow() {
@@ -96,8 +97,6 @@ function deletespecificrow() {
       var tr = td.parentNode;
       tr.parentNode.removeChild(tr);
 }
-
-
 
 function iexconnect(){
 
