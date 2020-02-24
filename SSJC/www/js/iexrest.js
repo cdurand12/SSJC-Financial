@@ -10,6 +10,7 @@ function addrow(){
   var row = table.insertRow(-1);
   rowNum = rowNum + 1;
   var text = "row" + rowNum.toString();
+  row.setAttribute("id", text);
 
   var td1 = document.createElement("td");
   var td2 = document.createElement("td");
@@ -35,20 +36,25 @@ function addrow(){
   text = "stck" + rowNum.toString();
   cell1.setAttribute("placeholder", text);
   cell1.setAttribute("id", text);
+  cell1.setAttribute("class", "stock");
   td1.appendChild(cell1);
   var cell2 = document.createElement("input");
   cell2.setAttribute("type", "number");
-  cell2.setAttribute("placeholder", "# of Stocks");
+  cell2.setAttribute("placeholder", "0");
   cell2.setAttribute("min","0");
   text = "ask" + rowNum.toString();
-  var funcText = "calcValue(" + text + ")";
-  cell2.setAttribute("onchange", funcText);
+  var funcText = "calcValue(\'" + text + "\')";
+  cell2.setAttribute("oninput", funcText);
+  cell2.setAttribute("id", ("num" + rowNum.toString()));
+  cell2.setAttribute("class", "num");
   td2.appendChild(cell2);
   var cell3 = document.createElement("input");
   cell3.setAttribute("disabled", "true");
   cell3.setAttribute("type", "text");
   cell3.setAttribute("placeholder", "Asking Price");
+  cell3.setAttribute("oninput", funcText);
   cell3.setAttribute("id", text);
+  cell3.setAttribute("class", "ask");
   td3.appendChild(cell3);
   var cell4 = document.createElement("input");
   cell4.setAttribute("disabled", "true");
@@ -56,20 +62,25 @@ function addrow(){
   cell4.setAttribute("placeholder", "Bid Price");
   text = "bid" + rowNum.toString();
   cell4.setAttribute("id", text);
+  cell4.setAttribute("class", "bid");
   td4.appendChild(cell4);
   var cell5 = document.createElement("input");
   cell5.setAttribute("disabled", "true");
   cell5.setAttribute("type", "text");
   cell5.setAttribute("placeholder", "Change");
   text = "change" + rowNum.toString();
+  //cell5.setAttribute("oninput", ("color(\'" + text + "\')"))
   cell5.setAttribute("id", text);
+  cell5.setAttribute("class", "pm");
   td5.appendChild(cell5);
   var cell6 = document.createElement("input");
   cell6.setAttribute("disabled", "true");
   cell6.setAttribute("type", "text");
   cell6.setAttribute("placeholder", "Change %");
   text = "percent" + rowNum.toString();
+  //cell6.setAttribute("oninput", ("color(\'" + text + "\')"))
   cell6.setAttribute("id", text);
+  cell6.setAttribute("class", "pr");
   td6.appendChild(cell6);
   var cell7 = document.createElement("input");
   cell7.setAttribute("type", "text");
@@ -87,13 +98,26 @@ function addrow(){
   xbutton.appendChild(xb);
 }
 
+/*
+function color(tag)
+{
+  var num = document.getElementById(tag);
+  if(num[0] == "-"){ make red }
+  else if(num == 0){ make grey }
+  else{ make green }
+}
+*/
+
 function calcValue(asknumber)
 {
   var row = asknumber.toString();
-  console.log(row);
-  var num = document.getElementById(row);
-  row = asknumber - "ask";
-  console.log(row);
+  var askP = Number(document.getElementById(row).value);
+  row = asknumber[3];
+  var num = Number(document.getElementById("num" + row).value);
+  if(num < 0){ document.getElementById("num" + row).value = 0; num = 0; }
+  var totVal = askP * num;
+  var input = document.getElementById("value" + row);
+  input.value = totVal;
 }
 
 function deleterow() {
@@ -167,6 +191,7 @@ stream.on('data', (response) => {
                 console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
                 if(quote.symbol == document.getElementById("stck" + i).value){
                   document.getElementById("ask" + i).value = quote.latestPrice;
+                  calcValue("ask"+i);
                   document.getElementById("bid" + i).value = quote.iexBidPrice;
                   document.getElementById("change" + i).value = quote.change;
                   document.getElementById("percent" + i).value = quote.changePercent;
