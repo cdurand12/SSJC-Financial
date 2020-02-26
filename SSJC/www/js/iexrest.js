@@ -152,85 +152,85 @@ function deletespecificrow() {
       tr.parentNode.removeChild(tr);
 }
 
-function iexconnect(){
-
-  if(stream){
-  stream.abort();
-  console.log("stream stopped");
-  }
-
-function connect() {
-  var stocks = getStocks();
-  console.log(stocks);
-    stream = request({
-        url: (`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`),
-        headers: {
-            'Connection': 'keep-alive',
-            'Content-Type': 'text/event-stream',
-            'Cache-Control': 'no-cache'
-        }})
-}
-connect();
-
-stream.on('socket', () => {
-    console.log("Connected");
-});
-
-stream.on('end', () => {
-    console.log("Reconnecting");
-    connect();
-});
-
-stream.on('complete', () => {
-    console.log("Reconnecting");
-    connect();
-});
-
-stream.on('error', (err) => {
-    console.log("Error", err);
-    connect();
-});
-
-stream.on('data', (response) => {
-    var chunk = response.toString();
-    var cleanedChunk = chunk.replace(/data: /g, '');
-
-    if (partialMessage) {
-        cleanedChunk = partialMessage + cleanedChunk;
-        partialMessage = "";
-    }
-
-    var chunkArray = cleanedChunk.split('\r\n\r\n');
-
-    chunkArray.forEach(function (message) {
-            try {
-              for(var i = 1; i < document.getElementById("stocktable").rows.length; i++){
-                var quote = JSON.parse(message)[0];
-                console.log(quote);
-                console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
-                if(quote.symbol == document.getElementById("stck" + i).value){
-                  document.getElementById("ask" + i).value = quote.latestPrice;
-                  calcValue("ask"+i);
-                  document.getElementById("bid" + i).value = quote.iexBidPrice;
-                  document.getElementById("change" + i).value = quote.change;
-                  document.getElementById("percent" + i).value = quote.changePercent;
-                  document.getElementById("asize" + i).value = quote.changePercent;
-                  document.getElementById("bsize" + i).value = quote.changePercent;
-                }
-                //JSON example https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4
-                //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
-                }
-            } catch (error) {
-                partialMessage = message;
-            }
-    });
-console.log("data recieved");
-});
-
-function wait () { setTimeout(wait, 1000); };
-
-wait();
-}
+// function iexconnect(){
+//
+//   if(stream){
+//   stream.abort();
+//   console.log("stream stopped");
+//   }
+//
+// function connect() {
+//   var stocks = getStocks();
+//   console.log(stocks);
+//     stream = request({
+//         url: (`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`),
+//         headers: {
+//             'Connection': 'keep-alive',
+//             'Content-Type': 'text/event-stream',
+//             'Cache-Control': 'no-cache'
+//         }})
+// }
+// connect();
+//
+// stream.on('socket', () => {
+//     console.log("Connected");
+// });
+//
+// stream.on('end', () => {
+//     console.log("Reconnecting");
+//     connect();
+// });
+//
+// stream.on('complete', () => {
+//     console.log("Reconnecting");
+//     connect();
+// });
+//
+// stream.on('error', (err) => {
+//     console.log("Error", err);
+//     connect();
+// });
+//
+// stream.on('data', (response) => {
+//     var chunk = response.toString();
+//     var cleanedChunk = chunk.replace(/data: /g, '');
+//
+//     if (partialMessage) {
+//         cleanedChunk = partialMessage + cleanedChunk;
+//         partialMessage = "";
+//     }
+//
+//     var chunkArray = cleanedChunk.split('\r\n\r\n');
+//
+//     chunkArray.forEach(function (message) {
+//             try {
+//               for(var i = 1; i < document.getElementById("stocktable").rows.length; i++){
+//                 var quote = JSON.parse(message)[0];
+//                 console.log(quote);
+//                 console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
+//                 if(quote.symbol == document.getElementById("stck" + i).value){
+//                   document.getElementById("ask" + i).value = quote.latestPrice;
+//                   calcValue("ask"+i);
+//                   document.getElementById("bid" + i).value = quote.iexBidPrice;
+//                   document.getElementById("change" + i).value = quote.change;
+//                   document.getElementById("percent" + i).value = quote.changePercent;
+//                   document.getElementById("asize" + i).value = quote.changePercent;
+//                   document.getElementById("bsize" + i).value = quote.changePercent;
+//                 }
+//                 //JSON example https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4
+//                 //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
+//                 }
+//             } catch (error) {
+//                 partialMessage = message;
+//             }
+//     });
+// console.log("data recieved");
+// });
+//
+// function wait () { setTimeout(wait, 1000); };
+//
+// wait();
+// }
 
 function iexconnect2(){
   if(source != null && source.readyState !== 2){
@@ -258,7 +258,7 @@ function iexconnect2(){
                 console.log("data recieved from iexconnect2");
                 var quote = JSON.parse(message)[0];
                 console.log(quote);
-                console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
+                //console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
                 if(quote.symbol == document.getElementById("stck" + i).value){
                   document.getElementById("ask" + i).value = quote.latestPrice;
                   calcValue("ask"+i);
@@ -267,6 +267,7 @@ function iexconnect2(){
                   document.getElementById("percent" + i).value = quote.changePercent;
                   document.getElementById("asize" + i).value = quote.iexAskSize;
                   document.getElementById("bsize" + i).value = quote.iexBidSize;
+                  document.getElementById("ppr" + i).value = (parseFloat(document.getElementById("value" + i).value)/portfolioValue());
                 }
                 if(document.getElementById("stck" + i).value == ""){
                   document.getElementById("ask" + i).value = "";
@@ -275,6 +276,8 @@ function iexconnect2(){
                   document.getElementById("percent" + i).value = "";
                   document.getElementById("asize" + i).value = "";
                   document.getElementById("bsize" + i).value = "";
+                  document.getElementById("value" + i).value = "";
+                  document.getElementById("ppr" + i).value = "";
                 }
                 //JSON example https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4
                 //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
@@ -299,4 +302,15 @@ function getStocks(){
   var returnList = stocksList.substring(0, stocksList.length - 1);
   console.log(returnList);
   return returnList;
+}
+
+function portfolioValue(){
+  var totalValue = 0;
+  for(var i = 1; i < document.getElementById("stocktable").rows.length; i++){
+    if(document.getElementById("value" + i).value != ""){
+    totalValue += parseFloat(document.getElementById("value" + i).value);
+    console.log("total value = "+totalValue);
+  }
+  }
+  return totalValue;
 }
