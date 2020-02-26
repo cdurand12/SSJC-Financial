@@ -17,18 +17,24 @@ function addrow(){
   var snum = document.createElement("td");
   var ask = document.createElement("td");
   var bid = document.createElement("td");
+  var asize = document.createElement("td");
+  var bsize = document.createElement("td");
   var change = document.createElement("td");
   var cpercent = document.createElement("td");
   var tvalue = document.createElement("td");
+  var ppercent = document.createElement("td");
   var xbutton = document.createElement("td");
   xbutton.setAttribute("class", "xb");
   row.appendChild(stck);
   row.appendChild(snum);
   row.appendChild(ask);
   row.appendChild(bid);
+  row.appendChild(asize);
+  row.appendChild(bsize);
   row.appendChild(change);
   row.appendChild(cpercent);
   row.appendChild(tvalue);
+  row.appendChild(ppercent);
   row.appendChild(xbutton);
 
   var cell1 = document.createElement("input");
@@ -70,12 +76,14 @@ function addrow(){
   cell5.setAttribute("disabled", "true");
   cell5.setAttribute("placeholder", "Size")
   cell5.setAttribute("id", "asize"+rowNum);
-  cell5.setAttribute("class", "asize");
+  cell5.setAttribute("class", "absize");
+  asize.appendChild(cell5);
   var cell6 = document.createElement("input");
   cell6.setAttribute("disabled", "true");
   cell6.setAttribute("placeholder", "Size");
   cell6.setAttribute("id", "bsize"+rowNum);
-  cell6.setAttribute("class", "bsize");
+  cell6.setAttribute("class", "absize");
+  bsize.appendChild(cell6);
   var cell7 = document.createElement("input");
   cell7.setAttribute("disabled", "true");
   cell7.setAttribute("type", "text");
@@ -101,6 +109,11 @@ function addrow(){
   text = "value" + rowNum.toString();
   cell9.setAttribute("id", text)
   tvalue.appendChild(cell9);
+  var cell10 = document.createElement("input");
+  cell10.setAttribute("disabled", "true");
+  cell10.setAttribute("placeholder", "%");
+  cell10.setAttribute("id", "ppr"+rowNum);
+  ppercent.appendChild(cell10);
   var xb = document.createElement("img");
   xb.setAttribute("src", "img/redx.png");
   xb.setAttribute("onclick", "deletespecificrow()");
