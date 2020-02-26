@@ -40,7 +40,7 @@ allprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.10.3'
+    gradleVersion = '6.2.1'
 }
 
 // Configuration properties. Set these via environment variables, build-extras.gradle, or gradle.properties.
@@ -182,6 +182,8 @@ task cdvPrintProps {
 }
 
 android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         versionCode cdvVersionCode ?: new BigInteger("" + privateHelpers.extractIntFromManifest("versionCode"))
         applicationId privateHelpers.extractStringFromManifest("package")
@@ -204,7 +206,7 @@ android {
     }
 
     compileSdkVersion cdvCompileSdkVersion
-    buildToolsVersion cdvBuildToolsVersion
+    buildToolsVersion '29.0.3'
 
     // This code exists for Crosswalk and other Native APIs.
     // By default, we multiply the existing version code in the
