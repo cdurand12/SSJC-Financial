@@ -259,7 +259,7 @@ function iexconnect2(){
                 var quote = JSON.parse(message)[0];
                 console.log(quote);
                 //console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
-                if(quote.symbol == document.getElementById("stck" + i).value){
+                if(document.getElementById("stck" + i).value != "" && quote.symbol == document.getElementById("stck" + i).value){
                   document.getElementById("ask" + i).value = quote.latestPrice;
                   calcValue("ask"+i);
                   document.getElementById("bid" + i).value = quote.iexBidPrice;
@@ -309,7 +309,6 @@ function portfolioValue(){
   for(var i = 1; i < document.getElementById("stocktable").rows.length; i++){
     if(document.getElementById("value" + i).value != ""){
     totalValue += parseFloat(document.getElementById("value" + i).value);
-    console.log("total value = "+totalValue);
   }
   }
   return totalValue;
