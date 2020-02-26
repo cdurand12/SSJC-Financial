@@ -1,6 +1,7 @@
 'use strict';
 const request = require('request');
 var stream;
+var source;
 var partialMessage;
 
 var rowNum = 3;
@@ -52,7 +53,7 @@ function addrow(){
   var cell3 = document.createElement("input");
   cell3.setAttribute("disabled", "true");
   cell3.setAttribute("type", "text");
-  cell3.setAttribute("placeholder", "Asking Price");
+  cell3.setAttribute("placeholder", "Last Price");
   cell3.setAttribute("oninput", funcText);
   cell3.setAttribute("id", text);
   cell3.setAttribute("class", "ask");
@@ -69,16 +70,16 @@ function addrow(){
   cell5.setAttribute("disabled", "true");
   cell5.setAttribute("placeholder", "Size")
   cell5.setAttribute("id", "asize"+rowNum);
-  cell5.setAttribute("class", "absize");
+  cell5.setAttribute("class", "asize");
   var cell6 = document.createElement("input");
   cell6.setAttribute("disabled", "true");
   cell6.setAttribute("placeholder", "Size");
   cell6.setAttribute("id", "bsize"+rowNum);
-  cell6.setAttribute("class", "absize");
+  cell6.setAttribute("class", "bsize");
   var cell7 = document.createElement("input");
   cell7.setAttribute("disabled", "true");
   cell7.setAttribute("type", "text");
-  cell7.setAttribute("placeholder", "Change");
+  cell7.setAttribute("placeholder", "Net Change");
   text = "change" + rowNum.toString();
   //cell7.setAttribute("oninput", ("color(\'" + text + "\')"))
   cell7.setAttribute("id", text);
@@ -213,6 +214,8 @@ stream.on('data', (response) => {
                   document.getElementById("bid" + i).value = quote.iexBidPrice;
                   document.getElementById("change" + i).value = quote.change;
                   document.getElementById("percent" + i).value = quote.changePercent;
+                  document.getElementById("asize" + i).value = quote.changePercent;
+                  document.getElementById("bsize" + i).value = quote.changePercent;
                 }
                 //JSON example https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4
                 //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
@@ -227,6 +230,60 @@ console.log("data recieved");
 function wait () { setTimeout(wait, 1000); };
 
 wait();
+}
+
+function iexconnect2(){
+  if(source != null && source.readyState !== 2){
+    console.log("stream stopped");
+    source.close();
+  }
+
+  var stocks = getStocks();
+  source = new EventSource(`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`);
+
+  source.onmessage = function(){
+    var chunk = event.data.toString();
+    var cleanedChunk = chunk.replace(/data: /g, '');
+
+    if (partialMessage) {
+        cleanedChunk = partialMessage + cleanedChunk;
+        partialMessage = "";
+    }
+
+    var chunkArray = cleanedChunk.split('\r\n\r\n');
+
+    chunkArray.forEach(function (message) {
+            //try {
+              for(var i = 1; i < document.getElementById("stocktable").rows.length; i++){
+                console.log("data recieved from iexconnect2");
+                var quote = JSON.parse(message)[0];
+                console.log(quote);
+                console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
+                if(quote.symbol == document.getElementById("stck" + i).value){
+                  document.getElementById("ask" + i).value = quote.latestPrice;
+                  calcValue("ask"+i);
+                  document.getElementById("bid" + i).value = quote.iexBidPrice;
+                  document.getElementById("change" + i).value = quote.change;
+                  document.getElementById("percent" + i).value = quote.changePercent;
+                  document.getElementById("asize" + i).value = quote.iexAskSize;
+                  document.getElementById("bsize" + i).value = quote.iexBidSize;
+                }
+                if(document.getElementById("stck" + i).value == ""){
+                  document.getElementById("ask" + i).value = "";
+                  document.getElementById("bid" + i).value = "";
+                  document.getElementById("change" + i).value = "";
+                  document.getElementById("percent" + i).value = "";
+                  document.getElementById("asize" + i).value = "";
+                  document.getElementById("bsize" + i).value = "";
+                }
+                //JSON example https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4
+                //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
+                }
+            //} catch (error) {
+                //partialMessage = message;
+            //}
+    });
+  }
 }
 
 function getStocks(){
