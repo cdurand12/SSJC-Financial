@@ -13,6 +13,7 @@
   "author": "SSJC",
   "license": "Apache-2.0",
   "dependencies": {
+    "cordova-android": "^8.1.0",
     "cordova-browser": "^6.0.0",
     "cordova-electron": "^1.1.1"
   },
