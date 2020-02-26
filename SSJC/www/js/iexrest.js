@@ -12,21 +12,22 @@ function addrow(){
   var text = "row" + rowNum.toString();
   row.setAttribute("id", text);
 
-  var td1 = document.createElement("td");
-  var td2 = document.createElement("td");
-  var td3 = document.createElement("td");
-  var td4 = document.createElement("td");
-  var td5 = document.createElement("td");
-  var td6 = document.createElement("td");
-  var td7 = document.createElement("td");
+  var stck = document.createElement("td");
+  var snum = document.createElement("td");
+  var ask = document.createElement("td");
+  var bid = document.createElement("td");
+  var change = document.createElement("td");
+  var cpercent = document.createElement("td");
+  var tvalue = document.createElement("td");
   var xbutton = document.createElement("td");
-  row.appendChild(td1);
-  row.appendChild(td2);
-  row.appendChild(td3);
-  row.appendChild(td4);
-  row.appendChild(td5);
-  row.appendChild(td6);
-  row.appendChild(td7);
+  xbutton.setAttribute("class", "xb");
+  row.appendChild(stck);
+  row.appendChild(snum);
+  row.appendChild(ask);
+  row.appendChild(bid);
+  row.appendChild(change);
+  row.appendChild(cpercent);
+  row.appendChild(tvalue);
   row.appendChild(xbutton);
 
   var cell1 = document.createElement("input");
@@ -37,7 +38,7 @@ function addrow(){
   cell1.setAttribute("placeholder", text);
   cell1.setAttribute("id", text);
   cell1.setAttribute("class", "stock");
-  td1.appendChild(cell1);
+  stck.appendChild(cell1);
   var cell2 = document.createElement("input");
   cell2.setAttribute("type", "number");
   cell2.setAttribute("placeholder", "0");
@@ -47,7 +48,7 @@ function addrow(){
   cell2.setAttribute("oninput", funcText);
   cell2.setAttribute("id", ("num" + rowNum.toString()));
   cell2.setAttribute("class", "num");
-  td2.appendChild(cell2);
+  snum.appendChild(cell2);
   var cell3 = document.createElement("input");
   cell3.setAttribute("disabled", "true");
   cell3.setAttribute("type", "text");
@@ -55,7 +56,7 @@ function addrow(){
   cell3.setAttribute("oninput", funcText);
   cell3.setAttribute("id", text);
   cell3.setAttribute("class", "ask");
-  td3.appendChild(cell3);
+  ask.appendChild(cell3);
   var cell4 = document.createElement("input");
   cell4.setAttribute("disabled", "true");
   cell4.setAttribute("type", "text");
@@ -63,32 +64,42 @@ function addrow(){
   text = "bid" + rowNum.toString();
   cell4.setAttribute("id", text);
   cell4.setAttribute("class", "bid");
-  td4.appendChild(cell4);
+  bid.appendChild(cell4);
   var cell5 = document.createElement("input");
   cell5.setAttribute("disabled", "true");
-  cell5.setAttribute("type", "text");
-  cell5.setAttribute("placeholder", "Change");
-  text = "change" + rowNum.toString();
-  //cell5.setAttribute("oninput", ("color(\'" + text + "\')"))
-  cell5.setAttribute("id", text);
-  cell5.setAttribute("class", "pm");
-  td5.appendChild(cell5);
+  cell5.setAttribute("placeholder", "Size")
+  cell5.setAttribute("id", "asize"+rowNum);
+  cell5.setAttribute("class", "absize");
   var cell6 = document.createElement("input");
   cell6.setAttribute("disabled", "true");
-  cell6.setAttribute("type", "text");
-  cell6.setAttribute("placeholder", "Change %");
-  text = "percent" + rowNum.toString();
-  //cell6.setAttribute("oninput", ("color(\'" + text + "\')"))
-  cell6.setAttribute("id", text);
-  cell6.setAttribute("class", "pr");
-  td6.appendChild(cell6);
+  cell6.setAttribute("placeholder", "Size");
+  cell6.setAttribute("id", "bsize"+rowNum);
+  cell6.setAttribute("class", "absize");
   var cell7 = document.createElement("input");
-  cell7.setAttribute("type", "text");
   cell7.setAttribute("disabled", "true");
-  cell7.setAttribute("placeholder", "Total Value");
+  cell7.setAttribute("type", "text");
+  cell7.setAttribute("placeholder", "Change");
+  text = "change" + rowNum.toString();
+  //cell7.setAttribute("oninput", ("color(\'" + text + "\')"))
+  cell7.setAttribute("id", text);
+  cell7.setAttribute("class", "pm");
+  change.appendChild(cell7);
+  var cell8 = document.createElement("input");
+  cell8.setAttribute("disabled", "true");
+  cell8.setAttribute("type", "text");
+  cell8.setAttribute("placeholder", "Change %");
+  text = "percent" + rowNum.toString();
+  //cell8.setAttribute("oninput", ("color(\'" + text + "\')"))
+  cell8.setAttribute("id", text);
+  cell8.setAttribute("class", "pr");
+  cpercent.appendChild(cell8);
+  var cell9 = document.createElement("input");
+  cell9.setAttribute("type", "text");
+  cell9.setAttribute("disabled", "true");
+  cell9.setAttribute("placeholder", "Total Value");
   text = "value" + rowNum.toString();
-  cell7.setAttribute("id", text)
-  td7.appendChild(cell7);
+  cell9.setAttribute("id", text)
+  tvalue.appendChild(cell9);
   var xb = document.createElement("img");
   xb.setAttribute("src", "img/redx.png");
   xb.setAttribute("onclick", "deletespecificrow()");
@@ -118,6 +129,13 @@ function calcValue(asknumber)
   var totVal = askP * num;
   var input = document.getElementById("value" + row);
   input.value = totVal;
+
+  //calc'ing percent of Portfolio
+  /*
+  var tableLength = document.getElementById("stocktable").rows.length;
+  for loop {add all nums together;}
+  for loop {perform the calculation on each row; num*value/total value}
+  */
 }
 
 function deleterow() {
