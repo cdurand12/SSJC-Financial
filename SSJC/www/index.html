@@ -1,5 +1,6 @@
 <html>
 <head>
+
   <h1>SSJC Financial</h1>
     <title>SSJC Financial</title>
     <meta charset="UTF-8" />
@@ -22,12 +23,18 @@
       .ppr { width: 100px; }
       .xb { border: 1px solid black; }
 	  </style>
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+
+  <script>
+  window.$ = window.jQuery = require("jQuery");
+  </script>
+  <script src="js/opencpu.js"></script>
   <script src="js/iexrest.js"></script>
+  <script src="js/markowitz.js"></script>
 </head>
 <body>
     <br />
-    <button onclick="iexconnect2()">Start Live Update</button> <button>Analyze me!</button>
+    <button onclick="iexconnect2()">Start Live Update</button> <button id="submitbutton" type="button" onclick="rtest()">Anaylze Me</button>
     <br />
     <table id="stocktable">
         <th>Stock</th>
