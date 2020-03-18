@@ -103,25 +103,6 @@ function logout()
 
 
 
-
-function send_verification()
-{
-    var user = firebase.auth().currentUser;
-
-    user.updateEmail("user@example.com").then(function() {
-      // Update successful.
-
-      alert("Verification Sent");
-
-    }).catch(function(error) {
-      // An error happened.
-
-      alert("Error: " + errorMessage);
-
-    });
-
-}
-
 /*
 
 var firebaseRef = firebase.database().ref();
