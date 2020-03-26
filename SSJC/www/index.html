@@ -28,13 +28,12 @@
   <script>
   window.$ = window.jQuery = require("jQuery");
   </script>
-  <script src="js/opencpu.js"></script>
   <script src="js/iexrest.js"></script>
   <script src="js/markowitz.js"></script>
 </head>
 <body>
     <br />
-    <button onclick="iexconnect2()">Start Live Update</button> <button id="submitbutton" type="button" onclick="rtest2()">Anaylze Me</button>
+    <button id="submitbutton" type="button" onclick="analyze()">Anaylze Me</button>
     <br />
     <table id="stocktable">
         <th>Stock</th>
@@ -48,7 +47,7 @@
         <th>Total Value</th>
         <th>Portfolio %</th>
         <tr id="row1">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK1" id="stck1" class="stock" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK1" onchange="iexconnect2()" id="stck1" class="stock" /></td>
             <td><input type="number" placeholder="0" oninput="calcValue('ask1')" id="num1" class="num" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="ask1" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="bid1" class="bid" /></td>
@@ -60,7 +59,7 @@
             <td><input disabled="true" placeholder="%" id="ppr1" class="ppr" /></td>
         </tr>
         <tr id="row2">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK2" id="stck2" class="stock" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK2" onchange="iexconnect2()" id="stck2" class="stock" /></td>
             <td><input type="number" placeholder="0" oninput="calcValue('ask2')" id="num2" class="num" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="ask2" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="bid2" class="bid" /></td>
@@ -73,7 +72,7 @@
             <td class="xb"><img src="img/redx.png" onclick="deletespecificrow()" height="10" width="10" vspace="5" /></td>
         </tr>
         <tr id="row3">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK3" id="stck3" class="stock" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK3" onchange="iexconnect2()" id="stck3" class="stock" /></td>
             <td><input type="number" placeholder="0" oninput="calcValue('ask3')" id="num3" class="num" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="ask3" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="bid3" class="bid" /></td>

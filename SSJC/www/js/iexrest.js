@@ -114,6 +114,7 @@ function addrow(table){
     cell10.setAttribute("disabled", "true");
     cell10.setAttribute("placeholder", "%");
     cell10.setAttribute("id", "ppr"+rowNum);
+    cell10.setAttribute("class", "ppr");
     ppercent.appendChild(cell10);
     var xb = document.createElement("img");
     xb.setAttribute("src", "img/redx.png");

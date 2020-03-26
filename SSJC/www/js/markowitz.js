@@ -1,13 +1,14 @@
 var PortfolioAllocation = require('portfolio-allocation');
+function analyze()
+{
+	var covMat = [[0.0146, 0.0187, 0.0145],
+					 			[0.0187, 0.0854, 0.0104],
+					  		[0.0145, 0.0104, 0.0289]];
 
-var covMat = [[0.0146, 0.0187, 0.0145],
-					 [0.0187, 0.0854, 0.0104],
-					  [0.0145, 0.0104, 0.0289]];
-
-    var returns = [0.062, 0.146, 0.128];
-var w = PortfolioAllocation.meanVarianceEfficientFrontierPortfolios(returns, covMat, { nbPortfolios: 5 }) ;
-
-console.log(w);
+  var returns = [0.062, 0.146, 0.128];
+	var w = PortfolioAllocation.meanVarianceEfficientFrontierPortfolios(returns, covMat, { nbPortfolios: 5 }) ;
+	console.log(w);
+}
 
 
 
