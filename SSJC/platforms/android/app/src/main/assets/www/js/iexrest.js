@@ -34,7 +34,7 @@ function addrow(){
   cell1.setAttribute("style", "text-transform: uppercase");
   cell1.setAttribute("oninput", "this.value = this.value.toUpperCase()");
   cell1.setAttribute("type", "text");
-  text = "stck" + rowNum.toString();
+  text = "stck" + rowNum;
   cell1.setAttribute("placeholder", text);
   cell1.setAttribute("id", text);
   cell1.setAttribute("class", "stock");
@@ -233,8 +233,9 @@ function iexconnect2(){
     var chunkArray = cleanedChunk.split('\r\n\r\n');
 
     chunkArray.forEach(function (message) {
-            try {
+            //try {
               for(var i = 1; i < document.getElementById("stocktable").rows.length; i++){
+                console.log("data recieved from iexconnect2");
                 var quote = JSON.parse(message)[0];
                 console.log(quote);
                 console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
@@ -245,14 +246,19 @@ function iexconnect2(){
                   document.getElementById("change" + i).value = quote.change;
                   document.getElementById("percent" + i).value = quote.changePercent;
                 }
+                if(document.getElementById("stck" + i).value == ""){
+                  document.getElementById("ask" + i).value = "";
+                  document.getElementById("bid" + i).value = "";
+                  document.getElementById("change" + i).value = "";
+                  document.getElementById("percent" + i).value = "";
+                }
                 //JSON example https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4
                 //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
                 }
-            } catch (error) {
-                partialMessage = message;
-            }
+            //} catch (error) {
+                //partialMessage = message;
+            //}
     });
-console.log("data recieved from iexconnect2");
   }
 }
 

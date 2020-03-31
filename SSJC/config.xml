@@ -20,7 +20,6 @@
       <edit-config file="AndroidManifest.xml"
                  target="/manifest/application/activity[@android:name='MainActivity']"
                  mode="merge">
-        <activity android:screenOrientation="landscape"></activity>
     </edit-config>
         <allow-intent href="market:*" />
         <allow-navigation href="http://*/*" />

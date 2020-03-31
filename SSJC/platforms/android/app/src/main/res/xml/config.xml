@@ -19,6 +19,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity[@android:name='MainActivity']">
+    </edit-config>
     <allow-intent href="market:*" />
     <allow-navigation href="http://*/*" />
     <allow-navigation href="https://*/*" />
