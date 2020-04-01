@@ -24,6 +24,8 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+var firebaseRef = firebase.database().ref();
+
 //displays either the login screen or logout screen
 //if the user is not logged in, it will display the login screen
 //if the user is logged in, it will display the logout screen
@@ -71,6 +73,16 @@ function login()
         alert("Error: " + errorMessage);
 
       });
+
+      //sets window the main portfolio window index.html
+
+
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+    // User is signed in.
+    setTimeout(() => {window.location.assign('index.html');}, 5000);
+    }
+});
 }
 
 
@@ -90,6 +102,19 @@ function signup()
 
     });
 
+    firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    var user = firebase.auth().currentUser;
+    console.log(user);
+    console.log(user.uid);
+    writeNewUser(firebaseRef, user.uid);
+    
+    setTimeout(() => {window.location.assign('index.html');}, 5000);
+  } else {
+    // No user is signed in.
+  }
+});
+
 }
 
 
@@ -101,7 +126,10 @@ function logout()
     firebase.auth().signOut();
 }
 
-
+//writes a new user to real-time database and sets up an empty portfolio
+function writeNewUser(databaseReference, userId) {
+    databaseReference.child("users").child(userId).child("portfolio").set("Empty");
+}
 
 /*
 
