@@ -7,9 +7,9 @@ var datasource;
 function histiexconnect(callbackfunc){
 	const xhttp = new XMLHttpRequest();
 	var stocks = getStocks();
-	var url = `https://cloud.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=1m &token=pk_9b5669a51e754b99bf4f4824f3e2a4e4`;
+	var url = `https://cloud.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=1m &token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&chartCloseOnly=true`;
 	//test URL
-	//url = `https://sandbox.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=1m &token=Tsk_4750097c011b4f69aa37b5bcaec5ebbe`;
+	//url = `https://sandbox.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=1m &token=Tsk_4750097c011b4f69aa37b5bcaec5ebbe&chartCloseOnly=true`;
 
 	xhttp.open("GET", url);
 	xhttp.send();
@@ -19,9 +19,6 @@ function histiexconnect(callbackfunc){
 		if(xhttp.readyState === 4 && xhttp.status == 200){
 			callbackfunc(this);
 	}
-	//console.log([stockAvg, stockVar]);
-	//return [stockAvg, stockVar];
-
 	}
 }
 
@@ -56,7 +53,8 @@ function analyze(inputs)
 	//console.log(inputs);
 	console.log("Averages: " + averages);
 	console.log(variances);
-
+	variances.forEach(element => element.shift());
+	console.log(variances);
 	//TEST DATA
 	//var covMat = [[0.40755159,0.03175842,0.05183923,0.05663904,0.0330226,0.00827775,0.02165938,0.01332419,0.0343476,0.02249903],
 						// [0.03175842,0.9063047,0.03136385,0.02687256,0.01917172,0.00934384,0.02495043,0.00761036,0.02874874,0.01336866],
