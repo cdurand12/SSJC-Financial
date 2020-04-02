@@ -43,7 +43,7 @@ function createWindow () {
 
     // and load the index.html of the app.
     // TODO: possibly get this data from config.xml
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    mainWindow.loadURL(`file://${__dirname}/login.html`);
     mainWindow.webContents.on('did-finish-load', function () {
         mainWindow.webContents.send('window-id', mainWindow.id);
     });
