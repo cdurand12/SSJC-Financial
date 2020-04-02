@@ -21,7 +21,7 @@
     "jquery": "^3.4.1",
     "math.js": "^1.1.46",
     "mathjs": "^6.6.2",
-    "portfolio-allocation": "0.0.7"
+    "portfolio-allocation": "0.0.7",
     "firebase": "^7.8.2"
   },
   "devDependencies": {

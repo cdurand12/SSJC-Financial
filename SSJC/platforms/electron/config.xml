@@ -8,7 +8,6 @@
         SSJC
     </author>
     <content src="login.html" />
-    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
