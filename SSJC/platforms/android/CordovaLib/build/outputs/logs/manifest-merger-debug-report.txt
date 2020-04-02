@@ -1,0 +1,31 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml:20:1-22:12
+INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml:20:1-22:12
+INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml:20:1-22:12
+INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml:20:1-22:12
+INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml:20:1-22:12
+INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml:20:1-22:12
+INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml:20:1-22:12
+	package
+		ADDED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml:21:7-35
+		INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml
+		INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml
+	android:versionName
+		ADDED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml:21:36-61
+		INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml
+		INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml:20:11-69
+	android:versionCode
+		ADDED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml:21:62-85
+		INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml
+		INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml
+uses-sdk
+INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml
+INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml
+		ADDED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml
+		INJECTED from C:\Users\Chris\Documents\GitHub\SSJC-Financial\SSJC\platforms\android\CordovaLib\AndroidManifest.xml

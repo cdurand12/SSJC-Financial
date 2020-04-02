@@ -368,7 +368,7 @@ function iexconnect2(){
               for(var i = 1; i < document.getElementById("stocktable").rows.length; i++){
                 console.log("data recieved from iexconnect2");
                 var quote = JSON.parse(message)[0];
-                console.log(quote);
+                //console.log(quote);
                 //console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
                 if(document.getElementById("stck" + i).value != "" && quote.symbol == document.getElementById("stck" + i).value){
                   document.getElementById("ask" + i).value = quote.latestPrice;
