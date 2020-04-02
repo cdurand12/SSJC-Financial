@@ -42,6 +42,7 @@ function addrow(table){
     var cell1 = document.createElement("input");
     cell1.setAttribute("oninput", "this.value = this.value.toUpperCase()");
     cell1.setAttribute("type", "text");
+    cell1.setAttribute("onchange", "iexconnect2()");
     text = "stck" + rowNum.toString();
     cell1.setAttribute("placeholder", text);
     cell1.setAttribute("id", text);
@@ -352,6 +353,9 @@ function iexconnect2(){
   var stocks = getStocks();
   source = new EventSource(`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`);
 
+  //TEST SOURCE
+  //source = new EventSource(`https://sandbox-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=Tsk_4750097c011b4f69aa37b5bcaec5ebbe&symbols=${stocks}`);
+
   source.onmessage = function(){
     var chunk = event.data.toString();
     var cleanedChunk = chunk.replace(/data: /g, '');
@@ -404,13 +408,13 @@ function getStocks(){
   var table = document.getElementById('stocktable');
   var stocksList = "";
   var tableLength = document.getElementById("stocktable").rows.length;
-  console.log(tableLength);
+  //console.log(tableLength);
   for(var i=1; i < tableLength; i++){
     if(document.getElementById("stck" + i).value != ""){
       stocksList += (document.getElementById("stck" + i).value + ",");
     }
   }
   var returnList = stocksList.substring(0, stocksList.length - 1);
-  console.log(returnList);
+  //console.log(returnList);
   return returnList;
 }
