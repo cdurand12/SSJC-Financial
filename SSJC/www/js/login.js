@@ -119,8 +119,6 @@ function signup()
 
 
 
-
-
 function logout()
 {
     firebase.auth().signOut();
@@ -130,21 +128,12 @@ function logout()
 
 
 
-
-
-
-
-
 //writes a new user to real-time database and sets up an empty portfolio
 function writeNewUser(databaseReference, userId) {
 
     databaseReference.child("users").child(userId).child("portfolio").set("Empty");
 
 }
-
-
-
-
 
 function getStocksArray(){
   var table = document.getElementById('stocktable');
@@ -168,60 +157,34 @@ function getStocksArray(){
   return [stocksList, stocksNumbersList];
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 function writeNewPortfolio()
 {
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       // User is signed in.
-
       var stockid = getStocksArray()
-
       var stockidArray = stockid[0]
-
-      var stocknumber = getStocksArray()
-
       var stockNumberArray = stockid[1]
-
 
       var user = firebase.auth().currentUser;
       var userid = user.uid;
 
+      for(var i = 0; i < stockidArray.length; i++){
+        var stockSym = stockidArray[i];
+        var shareNum = stockNumberArray[i];
+        firebaseRef.child("users").child(userid).child("portfolio").child(stockSym).set(shareNum);
+        //firebaseRef.child("users").child(userid).child("portfolio").child(stockidArray[1]).set(stockNumberArray[1]);
+      }
 
-    //  firebaseRef.child("users").child(userid).child("portfolio").child(stockidArray[0]).set(stockNumberArray[0]);
-    //  firebaseRef.child("users").child(userid).child("portfolio").child(stockidArray[1]).set(stockNumberArray[1]);
-      firebase.database().ref().child("users").child(userId).child("test").set("Empty");
+    //  firebase.database().ref().child("users").child(userid).child("test").set("Empty");
 
     } else {
       // No user is signed in.
     }
   });
 
-
-
-
 }
-
-
-
-
-
-
-
-
-
 
 
 function resetPassword()
@@ -245,10 +208,6 @@ function resetPassword()
   });
 
 }
-
-
-
-
 
 
 
