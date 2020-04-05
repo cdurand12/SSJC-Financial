@@ -52,6 +52,7 @@ function addrow(table){
     cell2.setAttribute("type", "number");
     cell2.setAttribute("placeholder", "0");
     cell2.setAttribute("min","0");
+    cell2.setAttribute("onchange", "writeNewPortfolio()");
     text = "ask" + rowNum.toString();
     var funcText = "calcValue(\'" + text + "\')";
     cell2.setAttribute("oninput", funcText);

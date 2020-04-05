@@ -174,7 +174,8 @@ function writeNewPortfolio()
         var stockSym = stockidArray[i];
         var shareNum = stockNumberArray[i];
         firebaseRef.child("users").child(userid).child("portfolio").child(stockSym).set(shareNum);
-        //firebaseRef.child("users").child(userid).child("portfolio").child(stockidArray[1]).set(stockNumberArray[1]);
+        //firebaseRef.child("users").child(userid).child("portfolio").child("stock").set(stockSym);
+        //firebaseRef.child("users").child(userid).child("portfolio").child("stock").child(stockSym).child("shares").set(shareNum);
       }
 
     //  firebase.database().ref().child("users").child(userid).child("test").set("Empty");
@@ -209,17 +210,30 @@ function resetPassword()
 
 }
 
+function popPortfolio(){
 
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var user = firebase.auth().currentUser;
+      var userid = user.uid;
 
-/*
+      firebaseRef.child("users").child(userid).child("portfolio").on('value', function(snapshot){
+        var userPortfolio = (snapshot.toJSON());
+        //console.log(userPortfolio);
 
-var firebaseRef = firebase.database().ref();
+        var i = 1;
+        for(var key in userPortfolio){
+          addrow(0);
+          console.log("Key: " + key);
+          document.getElementById("stck" + i).value = key;
+          console.log("Value: " + userPortfolio[key]);
+          document.getElementById("num" + i).value = userPortfolio[key];
+          i++;
+        }
+      });
+    } else {
+      // No user is signed in.
+    }
 
-function submitLogin(){
-  var accountName = document.getElementById("login");
-  var password = document.getElementById("password");
-  firebaseRef.child("Test").set("test");
-  firebaseRef.child(accountName.value).set(password.value);
+  });
 }
-
-*/
