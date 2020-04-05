@@ -80,7 +80,7 @@ function login()
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
     // User is signed in.
-    setTimeout(() => {window.location.assign('index.html');}, 5000);
+    setTimeout(() => {window.location.assign('index.html');}, 2000);
     }
 });
 }
@@ -108,8 +108,8 @@ function signup()
     console.log(user);
     console.log(user.uid);
     writeNewUser(firebaseRef, user.uid);
-    
-    setTimeout(() => {window.location.assign('index.html');}, 5000);
+
+    setTimeout(() => {window.location.assign('index.html');}, 2000);
   } else {
     // No user is signed in.
   }
@@ -124,12 +124,133 @@ function signup()
 function logout()
 {
     firebase.auth().signOut();
+    window.location.assign('login.html');
+
 }
+
+
+
+
+
+
+
 
 //writes a new user to real-time database and sets up an empty portfolio
 function writeNewUser(databaseReference, userId) {
+
     databaseReference.child("users").child(userId).child("portfolio").set("Empty");
+
 }
+
+
+
+
+
+function getStocksArray(){
+  var table = document.getElementById('stocktable');
+  var stocksList = [];
+  var stocksNumbersList = [];
+
+  var tableLength = document.getElementById("stocktable").rows.length;
+  //console.log(tableLength);
+  for(var i=1; i < tableLength; i++){
+    if(document.getElementById("stck" + i).value != "" && document.getElementById("num" + i).value != "")
+    {
+      stocksList.push(document.getElementById("stck" + i).value);
+      stocksNumbersList.push(document.getElementById("num" + i).value);
+
+    }
+  }
+
+  alert([stocksList, stocksNumbersList]);
+
+  //console.log(returnList);
+  return [stocksList, stocksNumbersList];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function writeNewPortfolio()
+{
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+
+      var stockid = getStocksArray()
+
+      var stockidArray = stockid[0]
+
+      var stocknumber = getStocksArray()
+
+      var stockNumberArray = stockid[1]
+
+
+      var user = firebase.auth().currentUser;
+      var userid = user.uid;
+
+
+    //  firebaseRef.child("users").child(userid).child("portfolio").child(stockidArray[0]).set(stockNumberArray[0]);
+    //  firebaseRef.child("users").child(userid).child("portfolio").child(stockidArray[1]).set(stockNumberArray[1]);
+      firebase.database().ref().child("users").child(userId).child("test").set("Empty");
+
+    } else {
+      // No user is signed in.
+    }
+  });
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+function resetPassword()
+{
+
+  var userEmail = document.getElementById("email").value;
+
+  var emailAddress = userEmail;
+
+  firebase.auth().sendPasswordResetEmail(emailAddress).then(function() {
+    // Email sent.
+  }).catch(function(error) {
+    // An error happened.
+
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ...
+
+    alert("Error: " + errorMessage);
+
+  });
+
+}
+
+
+
+
+
+
 
 /*
 
