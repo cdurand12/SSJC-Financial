@@ -30,11 +30,16 @@
   </script>
   <script src="js/iexrest.js"></script>
   <script src="js/markowitz.js"></script>
+  <script src="js/login.js"></script>
 </head>
 <body>
     <br />
-    <button id="submitbutton" type="button" onclick="analyze()">Anaylze Me</button>
+    <button id="submitbutton" type="button" onclick="histiexconnect(stockcallback)">Anaylze Me</button>
+    <button id="submitbutton" type="button" onclick="writeNewPortfolio()">Buy</button>
+    <button id="submitbutton" type="button" onclick="logout()">Logout</button>
+
     <br />
+
     <table id="stocktable">
         <th>Stock</th>
         <th># of Stocks</th>
@@ -48,7 +53,7 @@
         <th>Portfolio %</th>
         <tr id="row1">
             <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK1" onchange="iexconnect2()" id="stck1" class="stock" /></td>
-            <td><input type="number" placeholder="0" oninput="calcValue('ask1')" id="num1" class="num" /></td>
+            <td><input type="number" placeholder="0" oninput="calcValue('ask1')" id="num1" class="num" onchange="writeNewPortfolio()" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="ask1" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="bid1" class="bid" /></td>
             <td><input disabled="true" placeholder="Size" id="asize1" class="absize" /></td>
@@ -60,7 +65,7 @@
         </tr>
         <tr id="row2">
             <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK2" onchange="iexconnect2()" id="stck2" class="stock" /></td>
-            <td><input type="number" placeholder="0" oninput="calcValue('ask2')" id="num2" class="num" /></td>
+            <td><input type="number" placeholder="0" oninput="calcValue('ask2')" id="num2" class="num" onchange="writeNewPortfolio()" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="ask2" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="bid2" class="bid" /></td>
             <td><input disabled="true" placeholder="Size" id="asize2" class="absize" /></td>
@@ -73,7 +78,7 @@
         </tr>
         <tr id="row3">
             <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK3" onchange="iexconnect2()" id="stck3" class="stock" /></td>
-            <td><input type="number" placeholder="0" oninput="calcValue('ask3')" id="num3" class="num" /></td>
+            <td><input type="number" placeholder="0" oninput="calcValue('ask3')" id="num3" class="num" onchange="writeNewPortfolio()" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="ask3" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="bid3" class="bid" /></td>
             <td><input disabled="true" placeholder="Size" id="asize3" class="absize" /></td>
@@ -134,5 +139,16 @@
     </table>
     <img src="https://image.flaticon.com/icons/svg/149/149145.svg" height="30" width="30" vspace="5" onclick="addrow(1)" />
     <img src="https://image.flaticon.com/icons/svg/1783/1783121.svg" height="30" width="30" vspace="5" onclick="deleterow(1)" />
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first DO NOT REMOVE!!!!-->
+    <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
+
+    <script>
+    window.onload = function(){popPortfolio(); setTimeout(iexconnect2, 1000)};
+    </script>
+
 </body>
 </html>

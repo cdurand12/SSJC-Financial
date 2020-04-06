@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "291022424761",
+    "firebase_url": "https://ssjcfinancial.firebaseio.com",
+    "project_id": "ssjcfinancial",
+    "storage_bucket": "ssjcfinancial.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291022424761:android:29fb3b72cef6cde8266968",
+        "android_client_info": {
+          "package_name": "io.cordova.hellocordova"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291022424761-f2l8b9is1grdu0u82jdmmcecb5pj67nk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFvSMLSWosslKFTNwK76Qkmdnx5aT6l3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "291022424761-f2l8b9is1grdu0u82jdmmcecb5pj67nk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

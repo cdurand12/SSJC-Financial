@@ -1,8 +1,17 @@
+<html>
+<head>
+  <!--
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+-->
+</head>
+
 <!------ Include the above in your HEAD tag ---------->
 <link rel="stylesheet" type="text/css" href="css/login.css">
+<body>
+
+
 
 <div class="wrapper fadeInDown">
   <div id="formContent">
@@ -10,20 +19,72 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="SSJC Financial" />
+      <img src="https://image.flaticon.com/icons/svg/639/639365.svg" id="icon" alt="SSJC Financial" />
     </div>
 
-    <!-- Login Form -->
+
+<!--
+
     <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+      <input type="text" id="email" class="fadeIn second" name="login" placeholder="login">
       <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
+      <button onclick="loginBtn()" class="fadeIn fourth" value="Log In">
     </form>
 
-    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Login</a>
+    </div>
+
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Create New Account</a>
+    </div>
+
     <div id="formFooter">
       <a class="underlineHover" href="#">Forgot Password?</a>
     </div>
 
+
+
   </div>
 </div>
+-->
+
+
+
+
+        <div id = "loginDiv">
+
+            <input type="text" id="email" name="email" placeholder="email"><br>
+            <input type="text" id="password" name="password" placeholder="password"><br><br>
+            <button onclick="login()" id="login_button">LOGIN</button>
+            <button onclick="signup()" id="signup_button">SIGN UP</button>
+            <button onclick="resetPassword()" id="reset_Password">Reset Password</button>
+
+
+        </div>
+
+        <div id = "logoutDiv">
+
+            <h2>Welcome user!</h2>
+
+            <p id="user_para">Welcome, you are logged in!</p>
+
+            <button onclick="logout()" id="logout_button">Logout</button>
+
+        </div>
+
+
+
+
+
+
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first DO NOT REMOVE!!!!-->
+<script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
+
+<script src="js/login.js"></script>
+</body>
+</html>
