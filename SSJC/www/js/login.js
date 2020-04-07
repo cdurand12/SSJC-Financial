@@ -151,7 +151,7 @@ function getStocksArray(){
     }
   }
 
-  alert([stocksList, stocksNumbersList]);
+  //alert([stocksList, stocksNumbersList]);
 
   //console.log(returnList);
   return [stocksList, stocksNumbersList];

@@ -155,45 +155,49 @@ function addrow(table){
     var cell1 = document.createElement("input");
     cell1.setAttribute("oninput", "this.value = this.value.toUpperCase()");
     cell1.setAttribute("type", "text");
-    text = "stck" + rowNum.toString();
     cell1.setAttribute("placeholder", text);
+    cell1.setAttribute("id", "wstck"+rowNum.toString());
     cell1.setAttribute("class", "stock");
     stck.appendChild(cell1);
     var cell3 = document.createElement("input");
     cell3.setAttribute("disabled", "true");
     cell3.setAttribute("type", "text");
     cell3.setAttribute("placeholder", "Last Price");
+    cell3.setAttribute("id", "wask"+rowNum.toString());
     cell3.setAttribute("class", "ask");
     ask.appendChild(cell3);
     var cell4 = document.createElement("input");
     cell4.setAttribute("disabled", "true");
     cell4.setAttribute("type", "text");
     cell4.setAttribute("placeholder", "Bid Price");
+    cell4.setAttribute("id", "wbid"+rowNum.toString());
     cell4.setAttribute("class", "bid");
     bid.appendChild(cell4);
     var cell5 = document.createElement("input");
     cell5.setAttribute("disabled", "true");
-    cell5.setAttribute("placeholder", "Size")
+    cell5.setAttribute("placeholder", "Size");
+    cell5.setAttribute("id", "wasize"+rowNum.toString());
     cell5.setAttribute("class", "absize");
     asize.appendChild(cell5);
     var cell6 = document.createElement("input");
     cell6.setAttribute("disabled", "true");
     cell6.setAttribute("placeholder", "Size");
+    cell6.setAttribute("id", "wbsize"+rowNum.toString());
     cell6.setAttribute("class", "absize");
     bsize.appendChild(cell6);
     var cell7 = document.createElement("input");
     cell7.setAttribute("disabled", "true");
     cell7.setAttribute("type", "text");
     cell7.setAttribute("placeholder", "Net Change");
-    text = "wchange" + rowNum.toString();
     //cell7.setAttribute("oninput", ("color(\'" + text + "\')"))
+    cell7.setAttribute("id", "wchange"+rowNum.toString());
     cell7.setAttribute("class", "net");
     change.appendChild(cell7);
     var cell8 = document.createElement("input");
     cell8.setAttribute("disabled", "true");
     cell8.setAttribute("type", "text");
     cell8.setAttribute("placeholder", "Change %");
-    text = "wpercent" + rowNum.toString();
+    cell8.setAttribute("id", "wchange"+rowNum.toString());
     //cell8.setAttribute("oninput", ("color(\'" + text + "\')"))
     cell8.setAttribute("class", "perc");
     cpercent.appendChild(cell8);
@@ -223,7 +227,8 @@ function calcValue(asknumber)
 {
   var row = asknumber.toString();
   var askP = Number(document.getElementById(row).value);
-  row = asknumber[3];
+  if(asknumber.length == 4){ row = asknumber.substr(-1); }
+  else if(asknumber.length == 5){ row = asknumber.substr(-2); }
   var num = Number(document.getElementById("num" + row).value);
   if(num < 0){ document.getElementById("num" + row).value = 0; num = 0; }
   var multVal = askP * num;
@@ -264,86 +269,6 @@ function deletespecificrow() {
       var tr = td.parentNode;
       tr.parentNode.removeChild(tr);
 }
-
-// function iexconnect(){
-//
-//   if(stream){
-//   stream.abort();
-//   console.log("stream stopped");
-//   }
-//
-// function connect() {
-//   var stocks = getStocks();
-//   console.log(stocks);
-//     stream = request({
-//         url: (`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`),
-//         headers: {
-//             'Connection': 'keep-alive',
-//             'Content-Type': 'text/event-stream',
-//             'Cache-Control': 'no-cache'
-//         }})
-// }
-// connect();
-//
-// stream.on('socket', () => {
-//     console.log("Connected");
-// });
-//
-// stream.on('end', () => {
-//     console.log("Reconnecting");
-//     connect();
-// });
-//
-// stream.on('complete', () => {
-//     console.log("Reconnecting");
-//     connect();
-// });
-//
-// stream.on('error', (err) => {
-//     console.log("Error", err);
-//     connect();
-// });
-//
-// stream.on('data', (response) => {
-//     var chunk = response.toString();
-//     var cleanedChunk = chunk.replace(/data: /g, '');
-//
-//     if (partialMessage) {
-//         cleanedChunk = partialMessage + cleanedChunk;
-//         partialMessage = "";
-//     }
-//
-//     var chunkArray = cleanedChunk.split('\r\n\r\n');
-//
-//     chunkArray.forEach(function (message) {
-//             try {
-//               for(var i = 1; i < document.getElementById("stocktable").rows.length; i++){
-//                 var quote = JSON.parse(message)[0];
-//                 console.log(quote);
-//                 console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
-//                 if(quote.symbol == document.getElementById("stck" + i).value){
-//                   document.getElementById("ask" + i).value = quote.latestPrice;
-//                   calcValue("ask"+i);
-//                   document.getElementById("bid" + i).value = quote.iexBidPrice;
-//                   document.getElementById("change" + i).value = quote.change;
-//                   document.getElementById("percent" + i).value = quote.changePercent;
-//                   document.getElementById("asize" + i).value = quote.changePercent;
-//                   document.getElementById("bsize" + i).value = quote.changePercent;
-//                 }
-//                 //JSON example https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4
-//                 //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
-//                 }
-//             } catch (error) {
-//                 partialMessage = message;
-//             }
-//     });
-// console.log("data recieved");
-// });
-//
-// function wait () { setTimeout(wait, 1000); };
-//
-// wait();
-// }
 
 function iexconnect2(){
   if(source != null && source.readyState !== 2){
@@ -418,4 +343,70 @@ function getStocks(){
   var returnList = stocksList.substring(0, stocksList.length - 1);
   //console.log(returnList);
   return returnList;
+}
+
+function watchlist(){
+  if(source != null && source.readyState !== 2){
+    console.log("stream stopped");
+    source.close();
+  }
+  var table = document.getElementById('watchlist');
+  var stocksList = "";
+  var tableLength = document.getElementById("watchlist").rows.length;
+  //console.log(tableLength);
+  for(var i=1; i < tableLength; i++){
+    if(document.getElementById("wstck" + i).value != ""){
+      stocksList += (document.getElementById("wstck" + i).value + ",");
+    }
+  }
+  var returnList = stocksList.substring(0, stocksList.length - 1);
+  var stocks = returnList;
+  source = new EventSource(`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`);
+
+  //TEST SOURCE
+  //source = new EventSource(`https://sandbox-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=Tsk_4750097c011b4f69aa37b5bcaec5ebbe&symbols=${stocks}`);
+
+  source.onmessage = function(){
+    var chunk = event.data.toString();
+    var cleanedChunk = chunk.replace(/data: /g, '');
+
+    if (partialMessage) {
+        cleanedChunk = partialMessage + cleanedChunk;
+        partialMessage = "";
+    }
+
+    var chunkArray = cleanedChunk.split('\r\n\r\n');
+
+    chunkArray.forEach(function (message) {
+            //try {
+              for(var i = 1; i < document.getElementById("watchlist").rows.length; i++){
+                console.log("watchist data");
+                var quote = JSON.parse(message)[0];
+                //console.log(quote);
+                //console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
+                if(document.getElementById("wstck" + i).value != "" && quote.symbol == document.getElementById("wstck" + i).value){
+                  document.getElementById("wask" + i).value = quote.latestPrice;
+                  document.getElementById("wbid" + i).value = quote.iexBidPrice;
+                  document.getElementById("wchange" + i).value = quote.change;
+                  document.getElementById("wpercent" + i).value = quote.changePercent;
+                  document.getElementById("wasize" + i).value = quote.iexAskSize;
+                  document.getElementById("wbsize" + i).value = quote.iexBidSize;
+                }
+
+                if(document.getElementById("wstck" + i).value == ""){
+                  document.getElementById("wask" + i).value = "";
+                  document.getElementById("wbid" + i).value = "";
+                  document.getElementById("wchange" + i).value = "";
+                  document.getElementById("wpercent" + i).value = "";
+                  document.getElementById("wasize" + i).value = "";
+                  document.getElementById("wbsize" + i).value = "";
+                }
+                //JSON example https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4
+                //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
+                }
+            //} catch (error) {
+                //partialMessage = message;
+            //}
+    });
+  }
 }

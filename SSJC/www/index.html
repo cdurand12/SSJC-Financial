@@ -104,7 +104,7 @@
     <br />
     <h1>Watchlist</h1>
     <br />
-    <button onclick="">Populate</button>
+    <button onclick="watchlist()">Populate</button>
     <br />
     <br>
     <div style="background-color:white; width:900px;border-radius: 25px">
@@ -117,32 +117,32 @@
         <th>Net Change</th>
         <th>Change %</th>
         <tr id="wrow1">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK1" class="stock" /></td>
-            <td><input disabled="true" type="text" placeholder="Last Price" class="ask" /></td>
-            <td><input disabled="true" type="text" placeholder="Bid Price" class="bid" /></td>
-            <td><input disabled="true" placeholder="Size" class="absize" /></td>
-            <td><input disabled="true" placeholder="Size" class="absize" /></td>
-            <td><input disabled="true" type="text" placeholder="Net Change" oninput="color('change1')" class="net" /></td>
-            <td><input disabled="true" type="text" placeholder="Change %" oninput="color('percent1')" class="perc" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK1" id="wstck1" class="stock" /></td>
+            <td><input disabled="true" type="text" placeholder="Last Price" id="wask1" class="ask" /></td>
+            <td><input disabled="true" type="text" placeholder="Bid Price" id="wbid1" class="bid" /></td>
+            <td><input disabled="true" placeholder="Size" id="wasize1" class="absize" /></td>
+            <td><input disabled="true" placeholder="Size" id="wbsize1" class="absize" /></td>
+            <td><input disabled="true" type="text" placeholder="Net Change" oninput="color('change1')" id="wchange1" class="net" /></td>
+            <td><input disabled="true" type="text" placeholder="Change %" oninput="color('percent1')" id="wpercent1" class="perc" /></td>
         </tr>
         <tr id="wrow2">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK2" class="stock" /></td>
-            <td><input disabled="true" type="text" placeholder="Last Price" class="ask" /></td>
-            <td><input disabled="true" type="text" placeholder="Bid Price" class="bid" /></td>
-            <td><input disabled="true" placeholder="Size" class="absize" /></td>
-            <td><input disabled="true" placeholder="Size" class="absize" /></td>
-            <td><input disabled="true" type="text" placeholder="Net Change" oninput="color('change2')" class="net" /></td>
-            <td><input disabled="true" type="text" placeholder="Change %" oninput="color('percent2')" class="perc" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK2" id="wstck2" class="stock" /></td>
+            <td><input disabled="true" type="text" placeholder="Last Price" id="wask2" class="ask" /></td>
+            <td><input disabled="true" type="text" placeholder="Bid Price" id="wbid2" class="bid" /></td>
+            <td><input disabled="true" placeholder="Size" id="wasize2" class="absize" /></td>
+            <td><input disabled="true" placeholder="Size" id="wbsize2" class="absize" /></td>
+            <td><input disabled="true" type="text" placeholder="Net Change" oninput="color('change2')" id="wchange2" class="net" /></td>
+            <td><input disabled="true" type="text" placeholder="Change %" oninput="color('percent2')" id="wpercent2" class="perc" /></td>
             <td class="xb"><img src="img/redx.png" onclick="deletespecificrow()" height="10" width="10" vspace="5" /></td>
         </tr>
         <tr id="wrow3">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK3" class="stock" /></td>
-            <td><input disabled="true" type="text" placeholder="Last Price" class="ask" /></td>
-            <td><input disabled="true" type="text" placeholder="Bid Price" class="bid" /></td>
-            <td><input disabled="true" placeholder="Size" class="absize" /></td>
-            <td><input disabled="true" placeholder="Size" class="absize" /></td>
-            <td><input disabled="true" type="text" placeholder="Net Change" oninput="color('change3')" class="net" /></td>
-            <td><input disabled="true" type="text" placeholder="Change %" oninput="color('percent3')" class="perc" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK3" id="wstck3" class="stock" /></td>
+            <td><input disabled="true" type="text" placeholder="Last Price" id="wask3" class="ask" /></td>
+            <td><input disabled="true" type="text" placeholder="Bid Price" id="wbid3" class="bid" /></td>
+            <td><input disabled="true" placeholder="Size" id="wasize3" class="absize" /></td>
+            <td><input disabled="true" placeholder="Size" id="wbsize3" class="absize" /></td>
+            <td><input disabled="true" type="text" placeholder="Net Change" oninput="color('change3')" id="wchange3" class="net" /></td>
+            <td><input disabled="true" type="text" placeholder="Change %" oninput="color('percent3')" id="wpercent3" class="perc" /></td>
             <td class="xb"><img src="img/redx.png" onclick="deletespecificrow()" height="10" width="10" vspace="5" /></td>
         </tr>
     </table>
