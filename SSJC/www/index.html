@@ -104,7 +104,6 @@
     <br />
     <h1>Watchlist</h1>
     <br />
-    <button onclick="watchlist()">Populate</button>
     <br />
     <br>
     <div style="background-color:white; width:900px;border-radius: 25px">
@@ -117,7 +116,7 @@
         <th>Net Change</th>
         <th>Change %</th>
         <tr id="wrow1">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK1" id="wstck1" class="stock" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" onchange="iexconnect2()" placeholder="STCK1" id="wstck1" class="stock" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="wask1" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="wbid1" class="bid" /></td>
             <td><input disabled="true" placeholder="Size" id="wasize1" class="absize" /></td>
@@ -126,7 +125,7 @@
             <td><input disabled="true" type="text" placeholder="Change %" oninput="color('percent1')" id="wpercent1" class="perc" /></td>
         </tr>
         <tr id="wrow2">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK2" id="wstck2" class="stock" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" onchange="iexconnect2()" placeholder="STCK2" id="wstck2" class="stock" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="wask2" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="wbid2" class="bid" /></td>
             <td><input disabled="true" placeholder="Size" id="wasize2" class="absize" /></td>
@@ -136,7 +135,7 @@
             <td class="xb"><img src="img/redx.png" onclick="deletespecificrow()" height="10" width="10" vspace="5" /></td>
         </tr>
         <tr id="wrow3">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" placeholder="STCK3" id="wstck3" class="stock" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" onchange="iexconnect2()" placeholder="STCK3" id="wstck3" class="stock" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="wask3" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="wbid3" class="bid" /></td>
             <td><input disabled="true" placeholder="Size" id="wasize3" class="absize" /></td>

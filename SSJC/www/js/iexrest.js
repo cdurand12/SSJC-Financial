@@ -323,6 +323,27 @@ function iexconnect2(){
                 //JSON example https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4
                 //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
                 }
+                for(var i = 1; i < document.getElementById("watchlist").rows.length; i++){
+                  console.log("watchlist time");
+                  var quote = JSON.parse(message)[0];
+                  if(document.getElementById("wstck"+i).value != "" && quote.symbol == document.getElementById("wstck"+i).value){
+                    document.getElementById("wask" + i).value = quote.latestPrice;
+                    document.getElementById("wbid" + i).value = quote.iexBidPrice;
+                    document.getElementById("wchange" + i).value = quote.change;
+                    document.getElementById("wpercent" + i).value = quote.changePercent;
+                    document.getElementById("wasize" + i).value = quote.iexAskSize;
+                    document.getElementById("wbsize" + i).value = quote.iexBidSize;
+                  }
+
+                  if(document.getElementById("wstck"+i).value == ""){
+                    document.getElementById("wask" + i).value = "";
+                    document.getElementById("wbid" + i).value = "";
+                    document.getElementById("wchange" + i).value = "";
+                    document.getElementById("wpercent" + i).value = "";
+                    document.getElementById("wasize" + i).value = "";
+                    document.getElementById("wbsize" + i).value = "";
+                  }
+                }
             //} catch (error) {
                 //partialMessage = message;
             //}
@@ -340,73 +361,13 @@ function getStocks(){
       stocksList += (document.getElementById("stck" + i).value + ",");
     }
   }
-  var returnList = stocksList.substring(0, stocksList.length - 1);
-  //console.log(returnList);
-  return returnList;
-}
-
-function watchlist(){
-  if(source != null && source.readyState !== 2){
-    console.log("stream stopped");
-    source.close();
-  }
-  var table = document.getElementById('watchlist');
-  var stocksList = "";
-  var tableLength = document.getElementById("watchlist").rows.length;
-  //console.log(tableLength);
+  table = document.getElementById('watchlist');
+  tableLength = document.getElementById("watchlist").rows.length;
   for(var i=1; i < tableLength; i++){
     if(document.getElementById("wstck" + i).value != ""){
       stocksList += (document.getElementById("wstck" + i).value + ",");
     }
   }
   var returnList = stocksList.substring(0, stocksList.length - 1);
-  var stocks = returnList;
-  source = new EventSource(`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`);
-
-  //TEST SOURCE
-  //source = new EventSource(`https://sandbox-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=Tsk_4750097c011b4f69aa37b5bcaec5ebbe&symbols=${stocks}`);
-
-  source.onmessage = function(){
-    var chunk = event.data.toString();
-    var cleanedChunk = chunk.replace(/data: /g, '');
-
-    if (partialMessage) {
-        cleanedChunk = partialMessage + cleanedChunk;
-        partialMessage = "";
-    }
-
-    var chunkArray = cleanedChunk.split('\r\n\r\n');
-
-    chunkArray.forEach(function (message) {
-            //try {
-              for(var i = 1; i < document.getElementById("watchlist").rows.length; i++){
-                console.log("watchist data");
-                var quote = JSON.parse(message)[0];
-                //console.log(quote);
-                //console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
-                if(document.getElementById("wstck" + i).value != "" && quote.symbol == document.getElementById("wstck" + i).value){
-                  document.getElementById("wask" + i).value = quote.latestPrice;
-                  document.getElementById("wbid" + i).value = quote.iexBidPrice;
-                  document.getElementById("wchange" + i).value = quote.change;
-                  document.getElementById("wpercent" + i).value = quote.changePercent;
-                  document.getElementById("wasize" + i).value = quote.iexAskSize;
-                  document.getElementById("wbsize" + i).value = quote.iexBidSize;
-                }
-
-                if(document.getElementById("wstck" + i).value == ""){
-                  document.getElementById("wask" + i).value = "";
-                  document.getElementById("wbid" + i).value = "";
-                  document.getElementById("wchange" + i).value = "";
-                  document.getElementById("wpercent" + i).value = "";
-                  document.getElementById("wasize" + i).value = "";
-                  document.getElementById("wbsize" + i).value = "";
-                }
-                //JSON example https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4
-                //console.log(quote.symbol,quote.latestPrice, quote.iexBidPrice);
-                }
-            //} catch (error) {
-                //partialMessage = message;
-            //}
-    });
-  }
+  return returnList;
 }
