@@ -2,12 +2,19 @@ const {mean, variance} = require('mathjs');
 var PortfolioAllocation = require('portfolio-allocation');
 var cov = require( 'compute-covariance' );
 var datasource;
+//Amount of data to be analyzed
+//1m, 3m, 6m, 1y, 5y
+var dataRange = "3m";
+
+
+//Risk-free asset return %
+var riskfreeAsset = .35;
 
 //Grabs historic stock data from the past month for the stocks that are included in the user portfolio (not in the wishlist)
 function histiexconnect(callbackfunc){
 	const xhttp = new XMLHttpRequest();
 	var stocks = getStocks();
-	var url = `https://cloud.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=1m &token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&chartCloseOnly=true`;
+	var url = `https://cloud.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=${dataRange} &token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&chartCloseOnly=true`;
 	//test URL
 	//url = `https://sandbox.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=1m &token=Tsk_4750097c011b4f69aa37b5bcaec5ebbe&chartCloseOnly=true`;
 
@@ -72,8 +79,18 @@ function analyze(inputs)
 	console.log("Covariance Matrix" + covMat2);
 
   var returns = averages;
-	var w = PortfolioAllocation.maximumSharpeRatioWeights(returns, covMat2, 0) ;
+	var w = PortfolioAllocation.maximumSharpeRatioWeights(returns, covMat2, riskfreeAsset) ;
 	console.log("WEIGHTS: " + w);
+	markowitzAlert(w);
+}
+
+
+function markowitzAlert(weights){
+	var alertString = "To optimize your portfolio: \n";
+	for(var i = 0; i < weights.length; i++){
+		alertString += document.getElementById("stck" + (i+1)).value + " " + weights[i] + "\n";
+	}
+	alert(alertString);
 }
 
 

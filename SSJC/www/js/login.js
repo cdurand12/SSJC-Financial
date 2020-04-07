@@ -225,9 +225,9 @@ function popPortfolio(){
         for(var key in userPortfolio){
           if(i+1 >= document.getElementById("stocktable").rows.length)
             addrow(0);
-          console.log("Key: " + key);
+          //console.log("Key: " + key);
           document.getElementById("stck" + i).value = key;
-          console.log("Value: " + userPortfolio[key]);
+          //console.log("Value: " + userPortfolio[key]);
           document.getElementById("num" + i).value = userPortfolio[key];
           i++;
         }
