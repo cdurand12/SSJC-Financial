@@ -217,13 +217,14 @@ function popPortfolio(){
       var user = firebase.auth().currentUser;
       var userid = user.uid;
 
-      firebaseRef.child("users").child(userid).child("portfolio").on('value', function(snapshot){
+      firebaseRef.child("users").child(userid).child("portfolio").once('value').then(function(snapshot){
         var userPortfolio = (snapshot.toJSON());
         //console.log(userPortfolio);
 
         var i = 1;
         for(var key in userPortfolio){
-          addrow(0);
+          if(i+1 >= document.getElementById("stocktable").rows.length)
+            addrow(0);
           console.log("Key: " + key);
           document.getElementById("stck" + i).value = key;
           console.log("Value: " + userPortfolio[key]);
