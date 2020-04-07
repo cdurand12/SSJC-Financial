@@ -219,7 +219,7 @@ function color(id)
   console.log(num);
   if(num[0] == "-"){ document.getElementById(tag).style.color="#ff0000"; }
   else if(num == 0){ document.getElementById(tag).style.color="#999999"; }
-  else{ document.getElementById(tag).style.color="#0000ff"; }
+  else{ document.getElementById(tag).style.color="#27ae60"; }
 }
 
 
@@ -308,6 +308,16 @@ function iexconnect2(){
                   document.getElementById("percent" + i).value = quote.changePercent;
                   document.getElementById("asize" + i).value = quote.iexAskSize;
                   document.getElementById("bsize" + i).value = quote.iexBidSize;
+                  color("change" + i);
+                  color("percent" + i);
+                  // if(quote.change > 0)
+                  //   document.getElementById("change" + i).style.color = "green";
+                  // elseif(quote.change < 0)
+                  //   document.getElementById("change" + i).style.color = "red";
+                  // else{
+                  //   document.getElementById("change" + i).style.color = "black";
+                  // }
+
                 }
 
                 if(document.getElementById("stck" + i).value == ""){
@@ -333,6 +343,8 @@ function iexconnect2(){
                     document.getElementById("wpercent" + i).value = quote.changePercent;
                     document.getElementById("wasize" + i).value = quote.iexAskSize;
                     document.getElementById("wbsize" + i).value = quote.iexBidSize;
+                    color("wchange" + i);
+                    color("wpercent" + i);
                   }
 
                   if(document.getElementById("wstck"+i).value == ""){
