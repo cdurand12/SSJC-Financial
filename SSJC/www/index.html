@@ -1,12 +1,15 @@
 <html>
 <head>
 
-  <h1>SSJC Financial</h1>
+<center>
+
+  <h1><b>SSJC Financial</b></h1>
     <title>SSJC Financial</title>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="INDEX.css">
 	  <style type="text/css">
 	    * { font-family: Verdana, Arial, sans-serif; }
-		  body { background-color: #fff; cursor: default; }
+		  body { background-color: #56baed; cursor: default; }
 		  h1 { font-size: 20pt; }
 	    p { font-size: 10pt; }
       table { border-collapse: collapse; }
@@ -39,7 +42,9 @@
     <button id="submitbutton" type="button" onclick="logout()">Logout</button>
 
     <br />
+    <br>
 
+    <div style="background-color:white;border-radius: 25px">
     <table id="stocktable">
         <th>Stock</th>
         <th># of Stocks</th>
@@ -90,8 +95,10 @@
             <td class="xb"><img src="img/redx.png" onclick="deletespecificrow()" height="10" width="10" vspace="5" /></td>
         </tr>
     </table>
+  </div>
     <img src="https://image.flaticon.com/icons/svg/149/149145.svg" height="30" width="30" vspace="5" onclick="addrow(0)" />
     <img src="https://image.flaticon.com/icons/svg/1783/1783121.svg" height="30" width="30" vspace="5" onclick="deleterow(0)" />
+
     <br />
     <br />
     <br />
@@ -99,6 +106,8 @@
     <br />
     <button onclick="">Populate</button>
     <br />
+    <br>
+    <div style="background-color:white; width:900px;border-radius: 25px">
     <table id="watchlist">
         <th>Stock</th>
         <th>Last Price</th>
@@ -137,6 +146,7 @@
             <td class="xb"><img src="img/redx.png" onclick="deletespecificrow()" height="10" width="10" vspace="5" /></td>
         </tr>
     </table>
+  </div>
     <img src="https://image.flaticon.com/icons/svg/149/149145.svg" height="30" width="30" vspace="5" onclick="addrow(1)" />
     <img src="https://image.flaticon.com/icons/svg/1783/1783121.svg" height="30" width="30" vspace="5" onclick="deleterow(1)" />
 
@@ -150,5 +160,6 @@
     window.onload = function(){popPortfolio(); setTimeout(iexconnect2, 1000)};
     </script>
 
+</center>
 </body>
 </html>

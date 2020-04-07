@@ -94,14 +94,28 @@ h1 {
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
- 
+
 @-webkit-keyframes fade {
     from { opacity: 1.0; }
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
- 
+
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
+}
+
+#stocktable {
+  border: 4;
+  background-color: white;
+}
+
+#watchlist {
+  border: 4;
+  background-color: white;
+}
+
+.th {
+  background-color: white;
 }
