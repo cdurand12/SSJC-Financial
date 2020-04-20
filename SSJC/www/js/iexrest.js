@@ -4,6 +4,9 @@ var stream;
 var source;
 var partialMessage;
 
+//Real-time Stream Event Increment 1second, 5second
+var streamTimer = "1second";
+
 var rowNum = 3;
 function addrow(table){
   if(rowNum == 50){ return; }
@@ -214,9 +217,9 @@ function addrow(table){
 function color(id)
 {
   var tag = id;
-  console.log(tag);
+  //console.log(tag);
   var num = document.getElementById(tag).value;
-  console.log(num);
+  //console.log(num);
   if(num[0] == "-"){ document.getElementById(tag).style.color="#ff0000"; }
   else if(num == 0){ document.getElementById(tag).style.color="#999999"; }
   else{ document.getElementById(tag).style.color="#27ae60"; }
@@ -277,7 +280,7 @@ function iexconnect2(){
   }
 
   var stocks = getStocks();
-  source = new EventSource(`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`);
+  source = new EventSource(`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP${streamTimer}?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`);
 
   //TEST SOURCE
   //source = new EventSource(`https://sandbox-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=Tsk_4750097c011b4f69aa37b5bcaec5ebbe&symbols=${stocks}`);

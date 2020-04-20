@@ -88,63 +88,37 @@ function analyze(inputs)
 function markowitzAlert(weights){
 	var alertString = "To optimize your portfolio: \n";
 	for(var i = 0; i < weights.length; i++){
-		alertString += document.getElementById("stck" + (i+1)).value + " " + weights[i] + "\n";
+		alertString += document.getElementById("stck" + (i+1)).value + " " + shareDistribution(weights[i], i) + "\n";
 	}
 	alert(alertString);
 }
 
 
+function calcPortfolioValue()
+{
+  var totalAcc = 0;
+  for(var i = 1; i < document.getElementById("stocktable").rows.length; i++){
+    if(document.getElementById("value" + i).value != ""){
+    totalAcc += parseFloat(document.getElementById("value" + i).value);
+    }
+  }
+	totalAcc += (1*document.getElementById("ufunds").value);
+	console.log(totalAcc);
+  return totalAcc;
+}
 
-
-
-
-
-
-
-//*****OPENCPU DIDN'T WORK********
-// ocpu.seturl("http://public.opencpu.org/ocpu/library/base/R")
-//
-// var mydata = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-//
-// //call R function: stats::sd(x=data)
-//
-// function rtest(){
-//     console.log("rtest working");
-//     var req = ocpu.rpc("sd",{
-//         x : mydata
-//     }, function(output){
-//         alert("Standard Deviation equals: " + output);
-//     });
-//
-//     //optional
-//     req.fail(function(){
-//         alert("R returned an error: " + req.responseText);
-//     });
-// }
-//
-//
-// function rtest2(){
-//   console.log("rtest2 working");
-//   var markfunc = "function(x, n){ return(x^n)}";
-//
-//   var mysnippet = new ocpu.Snippet(markfunc);
-//
-//   var req = ocpu.rpc("do.call", {
-//        what : mysnippet,
-//        args : {
-//            x : [1,2,3,4,5],
-//            n : 3
-//        }
-//    }, function(output){
-//      console.log(output);
-//    });
-//
-//    //if R returns an error, alert the error message
-//    req.fail(function(){
-//        alert("Server error: " + req.responseText);
-//    });
-//
-//    req.always(function(){
-//        $("button").removeAttr("disabled");
-// });
-// }
+function shareDistribution(weight, rownum)
+{
+	if(weight != 0){
+	var shareProjection = 0;
+	console.log(weight + " , " + document.getElementById("ask" + (rownum+1)).value);
+	shareProjection = (calcPortfolioValue() * weight)/document.getElementById("ask" + (rownum+1)).value;
+	var stockdifferential = shareProjection - document.getElementById("num" + (rownum+1)).value;
+	if(stockdifferential > 0){
+		return ("Buy " + stockdifferential + " shares");
+	}
+		return ("Sell " + (stockdifferential*-1) + " shares");
+	}
+	console.log("weight is zero");
+	return ("Sell " + document.getElementById("num" + (rownum+1)).value + " shares");
+}

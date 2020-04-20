@@ -38,13 +38,16 @@
 <body>
     <br />
     <button id="submitbutton" type="button" onclick="histiexconnect(stockcallback)">Anaylze Me</button>
-    <button id="submitbutton" type="button" onclick="writeNewPortfolio()">Buy</button>
     <button id="submitbutton" type="button" onclick="logout()">Logout</button>
 
     <br />
     <br>
 
     <div style="background-color:white;border-radius: 25px">
+      <for
+    <label for="unallocated">Unallocated Funds:</label>
+    <input type="number" id="ufunds" placeholder="0"/>
+
     <table id="stocktable">
         <th>Stock</th>
         <th># of Stocks</th>
