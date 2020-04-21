@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Sign up</title>
+        <link rel="stylesheet" type="text/css" href="css/login.css">
+
+    </head>
+    <body>
+      <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <!-- Tabs Titles -->
+
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="https://image.flaticon.com/icons/svg/639/639365.svg" id="icon" alt="SSJC Financial" />
+          </div>
+
+
+        <h2>Welcome to Sign Up Page!</h2>
+
+        <input type="text" id="signupemail" name="signupemail" placeholder="email"><br>
+        <input type="password" id="signuppassword" name="signuppassword" placeholder="Password"><br>
+        <input type="password" id="re_enter" name="re_enter" placeholder="Re-enter Password"><br><br>
+
+        <br>
+
+        <button onclick="signup()" id="signup_button">SIGN UP</button>
+        <button onclick="backButton()" id="signup_button">Back to Login</button>
+
+
+
+
+
+
+
+        <!-- The core Firebase JS SDK is always required and must be listed first DO NOT REMOVE!!!!-->
+        <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
+
+        <script src="js/signup.js"></script>
+
+    </body>
+
+    </html>

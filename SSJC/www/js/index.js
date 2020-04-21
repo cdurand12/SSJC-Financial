@@ -44,3 +44,5 @@ var app = {
 };
 
 app.initialize();
+
+loginCheck();

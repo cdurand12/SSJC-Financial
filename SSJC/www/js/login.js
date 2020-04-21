@@ -30,31 +30,35 @@ var firebaseRef = firebase.database().ref();
 //if the user is not logged in, it will display the login screen
 //if the user is logged in, it will display the logout screen
 
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in.
 
-        document.getElementById("logoutDiv").style.display = "block";
-        document.getElementById("loginDiv").style.display = "none";
 
-        var user = firebase.auth().currentUser;
 
-        if(user != null)
-        {
 
-          var email_id = user.email;
+// Perform session logout and redirect to homepage after 300 seconds(5 minutes)
+var IDLE_TIMEOUT = 300; //seconds
+var _idleSecondsCounter = 0;
+document.onclick = function() {
+    _idleSecondsCounter = 0;
+};
+document.onmousemove = function() {
+    _idleSecondsCounter = 0;
+};
+document.onkeypress = function() {
+    _idleSecondsCounter = 0;
+};
+window.setInterval(CheckIdleTime, 1000);
 
-          document.getElementById("user_para").innerHTML = "Welcome User : " + "<br>" + email_id;
-
-        }
-    } else {
-      // No user is signed in.
-
-      document.getElementById("logoutDiv").style.display = "none";
-      document.getElementById("loginDiv").style.display = "block";
-
+function CheckIdleTime() {
+    _idleSecondsCounter++;
+    var oPanel = document.getElementById("SecondsUntilExpire");
+    if (oPanel)
+        oPanel.innerHTML = (IDLE_TIMEOUT - _idleSecondsCounter) + "";
+    if (_idleSecondsCounter >= IDLE_TIMEOUT) {
+        alert("Time expired!");
+        document.location.href = "login.html";
     }
-  });
+}
+
 
 
 function login()
@@ -83,46 +87,33 @@ function login()
     setTimeout(() => {window.location.assign('index.html');}, 2000);
     }
 });
+
 }
 
 
 
-function signup()
+
+function new_user()
 {
-    var userEmail = document.getElementById("email").value;
-    var userPassword = document.getElementById("password").value;
-
-    firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-
-      alert("Error: " + errorMessage);
-
-    });
-
-    firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    var user = firebase.auth().currentUser;
-    console.log(user);
-    console.log(user.uid);
-    writeNewUser(firebaseRef, user.uid);
-
-    setTimeout(() => {window.location.assign('index.html');}, 2000);
-  } else {
-    // No user is signed in.
-  }
-});
+    window.location.href = "signup.html";
 
 }
+
+
+function relogin()
+{
+  window.location.assign('login.html');
+
+}
+
+
 
 
 
 function logout()
 {
     firebase.auth().signOut();
-    window.location.assign('login.html');
+    window.location.assign('logout.html');
 
 }
 
@@ -237,4 +228,26 @@ function popPortfolio(){
     }
 
   });
+}
+
+
+
+
+
+function sellButton() {
+      var user = firebase.auth().currentUser;
+      var userid = user.uid;
+
+
+
+      var td = event.target.parentNode;
+      var tr = td.parentNode;
+
+      alert(tr.cells[1].value);
+
+      firebaseRef.child("users").child(userid).child("portfolio").child(td.cells[0].value).remove();
+
+      tr.parentNode.removeChild(tr);
+
+
 }

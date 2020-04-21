@@ -123,7 +123,7 @@ function addrow(table){
     ppercent.appendChild(cell10);
     var xb = document.createElement("img");
     xb.setAttribute("src", "img/redx.png");
-    xb.setAttribute("onclick", "deletespecificrow()");
+    xb.setAttribute("onclick", "sellButton()");
     xb.setAttribute("height", "10");
     xb.setAttribute("width", "10");
     xb.setAttribute("vspace", "5");
@@ -206,7 +206,7 @@ function addrow(table){
     cpercent.appendChild(cell8);
     var xb = document.createElement("img");
     xb.setAttribute("src", "img/redx.png");
-    xb.setAttribute("onclick", "deletespecificrow()");
+    xb.setAttribute("onclick", "sellButton()");
     xb.setAttribute("height", "10");
     xb.setAttribute("width", "10");
     xb.setAttribute("vspace", "5");
@@ -265,12 +265,6 @@ function deleterow(table) {
       rowNum = rowNum - 1;
     }
   }
-}
-
-function deletespecificrow() {
-      var td = event.target.parentNode;
-      var tr = td.parentNode;
-      tr.parentNode.removeChild(tr);
 }
 
 function iexconnect2(){
