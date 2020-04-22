@@ -239,15 +239,27 @@ function popPortfolio(){
 
 
 function sellButton() {
-  if(document.getElementById("stocktable").rows.length > 1){
+  console.log(document.getElementById("stocktable").rows.length);
+  if(document.getElementById("stocktable").rows.length > 2){
       var user = firebase.auth().currentUser;
       var userid = user.uid;
       var td = event.target.parentNode;
       var tr = td.parentNode;
       var Row = tr.getAttribute("id");
       var Cell = document.getElementById(Row).childNodes[0];
-      var Symbol = Cell.firstChild.value;
-      console.log(Symbol);
+      var Symbol;
+      console.log(Cell);
+
+      if(Cell.firstChild){
+        Symbol = Cell.firstChild.value;
+      }
+      else{
+        Cell = document.getElementById(Row).childNodes[1];
+        Symbol = Cell.firstChild.value;
+      }
+
+
+
 
       //Removes specified symbol from the database
       firebaseRef.child("users").child(userid).child("portfolio").child(Symbol).remove();
