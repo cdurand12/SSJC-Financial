@@ -208,10 +208,13 @@ function popPortfolio(){
       var user = firebase.auth().currentUser;
       var userid = user.uid;
 
+
+
       firebaseRef.child("users").child(userid).child("portfolio").once('value').then(function(snapshot){
         var userPortfolio = (snapshot.toJSON());
+        console.log(userPortfolio);
         //console.log(userPortfolio);
-
+        if(userPortfolio != "Empty"){
         var i = 1;
         for(var key in userPortfolio){
           if(i+1 >= document.getElementById("stocktable").rows.length)
@@ -222,6 +225,7 @@ function popPortfolio(){
           document.getElementById("num" + i).value = userPortfolio[key];
           i++;
         }
+      }
       });
     } else {
       // No user is signed in.
@@ -235,6 +239,7 @@ function popPortfolio(){
 
 
 function sellButton() {
+  if(document.getElementById("stocktable").rows.length > 1){
       var user = firebase.auth().currentUser;
       var userid = user.uid;
       var td = event.target.parentNode;
@@ -242,14 +247,14 @@ function sellButton() {
       var Row = tr.getAttribute("id");
       var Cell = document.getElementById(Row).childNodes[0];
       var Symbol = Cell.firstChild.value;
-      console.log(document.getElementById(Row).childNodes[0].firstChild.value);
+      console.log(Symbol);
 
       //Removes specified symbol from the database
       firebaseRef.child("users").child(userid).child("portfolio").child(Symbol).remove();
       //Removes the line from the portfolio
       tr.parentNode.removeChild(tr);
 
-      console.log(tr);
+      //console.log(tr);
 
 
     //RESETTING INDECIES OF IDS
@@ -289,6 +294,7 @@ function sellButton() {
 
         id++;
     });
+  }
 
 
 }
