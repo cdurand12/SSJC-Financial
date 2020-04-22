@@ -47,7 +47,7 @@ function addrow(table){
     cell1.setAttribute("type", "text");
     cell1.setAttribute("onchange", "iexconnect2()");
     text = "stck" + rowNum.toString();
-    cell1.setAttribute("placeholder", text);
+    cell1.setAttribute("placeholder", "symbol");
     cell1.setAttribute("id", text);
     cell1.setAttribute("class", "stock");
     stck.appendChild(cell1);
