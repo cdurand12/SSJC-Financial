@@ -237,17 +237,58 @@ function popPortfolio(){
 function sellButton() {
       var user = firebase.auth().currentUser;
       var userid = user.uid;
-
-
-
       var td = event.target.parentNode;
       var tr = td.parentNode;
+      var Row = tr.getAttribute("id");
+      var Cell = document.getElementById(Row).childNodes[0];
+      var Symbol = Cell.firstChild.value;
+      console.log(document.getElementById(Row).childNodes[0].firstChild.value);
 
-      alert(tr.cells[1].value);
-
-      firebaseRef.child("users").child(userid).child("portfolio").child(td.cells[0].value).remove();
-
+      //Removes specified symbol from the database
+      firebaseRef.child("users").child(userid).child("portfolio").child(Symbol).remove();
+      //Removes the line from the portfolio
       tr.parentNode.removeChild(tr);
+
+      console.log(tr);
+
+
+    //RESETTING INDECIES OF IDS
+      var id=1;
+    // select all elements with id starting with "refItem", and loop
+    $("tr[id^=row]").each(function(item) {
+        // update the "id" properties
+        $(this).prop("id", "row"+id);
+        var stcktd =$(this).find('input')[0];
+        var $domObj1 = $(stcktd);
+        $domObj1.prop("id", "stck"+id)
+        //console.log(stcktd);
+
+        var numtd =$(this).find('input')[1];
+        var $domObj2 = $(numtd);
+        $domObj2.prop("id", "num"+id);
+
+        var asktd =$(this).find('input')[2];
+        var $domObj3 = $(asktd);
+        $domObj3.prop("id", "ask"+id);
+
+        var bidtd =$(this).find('input')[3];
+        var $domObj4 = $(bidtd);
+        $domObj4.prop("id", "bid"+id);
+
+        var changetd =$(this).find('input')[6];
+        var $domObj5 = $(changetd);
+        $domObj5.prop("id", "change"+id);
+
+        var percenttd =$(this).find('input')[7];
+        var $domObj6 = $(percenttd);
+        $domObj6.prop("id", "percent"+id);
+
+        var valuetd =$(this).find('input')[8];
+        var $domObj7= $(valuetd);
+        $domObj7.prop("id", "value"+id);
+
+        id++;
+    });
 
 
 }
