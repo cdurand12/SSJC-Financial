@@ -7,14 +7,16 @@ var partialMessage;
 //Real-time Stream Event Increment 1second, 5second
 var streamTimer = "1second";
 
-var rowNum = 3;
+
 function addrow(table){
+  var rowNum = document.getElementById("stocktable").rows.length;
+  console.log(document.getElementById("stocktable").rows.length);
   if(rowNum == 50){ return; }
   else if(table == 0)
   {
     var table = document.getElementById("stocktable");
     var row = table.insertRow(-1);
-    rowNum = rowNum + 1;
+    //rowNum = rowNum + 1;
     var text = "row" + rowNum.toString();
     row.setAttribute("id", text);
 
