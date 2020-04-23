@@ -259,11 +259,8 @@ function sellButton() {
         Symbol = Cell.firstChild.value;
       }
 
-
-
-
       //Removes specified symbol from the database
-      firebaseRef.child("users").child(userid).child("portfolio").child(Symbol).remove();
+      if(Symbol!=""){firebaseRef.child("users").child(userid).child("portfolio").child(Symbol).remove();}
       //Removes the line from the portfolio
       tr.parentNode.removeChild(tr);
 
@@ -284,6 +281,7 @@ function sellButton() {
         var numtd =$(this).find('input')[1];
         var $domObj2 = $(numtd);
         $domObj2.prop("id", "num"+id);
+        $domObj2.prop("oninput", "calcValue(ask"+id+")");
 
         var asktd =$(this).find('input')[2];
         var $domObj3 = $(asktd);
@@ -293,17 +291,30 @@ function sellButton() {
         var $domObj4 = $(bidtd);
         $domObj4.prop("id", "bid"+id);
 
+        var asizetd =$(this).find('input')[4];
+        var $domObj5 = $(asizetd);
+        $domObj5.prop("id", "asize"+id);
+
+        var bsizetd =$(this).find('input')[5];
+        var $domObj6 = $(bsizetd);
+        $domObj6.prop("id", "bsize"+id);
+
         var changetd =$(this).find('input')[6];
-        var $domObj5 = $(changetd);
-        $domObj5.prop("id", "change"+id);
+        var $domObj7 = $(changetd);
+        $domObj7.prop("id", "change"+id);
+        $domObj7.prop("oninput", "color(change"+id+")");
 
         var percenttd =$(this).find('input')[7];
-        var $domObj6 = $(percenttd);
-        $domObj6.prop("id", "percent"+id);
+        var $domObj8 = $(percenttd);
+        $domObj8.prop("id", "color(percent"+id+")");
 
         var valuetd =$(this).find('input')[8];
-        var $domObj7= $(valuetd);
-        $domObj7.prop("id", "value"+id);
+        var $domObj9 = $(valuetd);
+        $domObj9.prop("id", "value"+id);
+
+        var pprtd =$(this).find('input')[9];
+        var $domObj9 = $(pprtd);
+        $domObj9.prop("id", "ppr"+id);
 
         id++;
     });

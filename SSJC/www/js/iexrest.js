@@ -251,7 +251,7 @@ function calcValue(asknumber)
   totalValue = Math.round(totalValue * 100 + Number.EPSILON) / 100;
   document.getElementById("ppr"+row).value = totalValue;
 }
-
+/*
 function deleterow(table) {
   if(table == 0)
   {
@@ -267,7 +267,7 @@ function deleterow(table) {
       rowNum = rowNum - 1;
     }
   }
-}
+}*/
 
 function iexconnect2(){
   if(source != null && source.readyState !== 2){
