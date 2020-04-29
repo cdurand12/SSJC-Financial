@@ -33,7 +33,10 @@ var firebaseRef = firebase.database().ref();
 
 
 
+/*
 
+// SESSION TIME OUT
+// USE IF WANTED
 
 // Perform session logout and redirect to homepage after 300 seconds(5 minutes)
 var IDLE_TIMEOUT = 300; //seconds
@@ -60,6 +63,7 @@ function CheckIdleTime() {
     }
 }
 
+*/
 
 
 function login()
@@ -119,13 +123,22 @@ function logout()
 }
 
 
-
+/*
+//this is now located in signup.js
 //writes a new user to real-time database and sets up an empty portfolio
 function writeNewUser(databaseReference, userId) {
 
     databaseReference.child("users").child(userId).child("portfolio").set("Empty");
 
 }
+*/
+
+
+
+
+
+
+
 
 function getStocksArray(){
   var table = document.getElementById('stocktable');
@@ -178,6 +191,66 @@ function writeNewPortfolio()
   });
 
 }
+
+
+
+
+
+function getStocksArrayWatchlist(){
+  var table = document.getElementById('watchlist');
+  var stocksList = [];
+  var stocksNumbersList = [];
+
+  var tableLength = document.getElementById("watchlist").rows.length;
+  //console.log(tableLength);
+  for(var i=1; i < tableLength; i++){
+    if(document.getElementById("wstck" + i).value != "")
+    {
+      stocksList.push(document.getElementById("wstck" + i).value);
+
+    }
+  }
+
+  //alert([stocksList, stocksNumbersList]);
+
+  //console.log(returnList);
+  return [stocksList, stocksNumbersList];
+}
+
+function writeNewPortfolioWatchlist()
+{
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      var stockid = getStocksArrayWatchlist()
+      var stockidArray = stockid[0]
+
+      var user = firebase.auth().currentUser;
+      var userid = user.uid;
+
+      for(var i = 0; i < stockidArray.length; i++){
+        var stockSym = stockidArray[i];
+
+
+
+        firebaseRef.child("users").child(userid).child("watchlist").child(stockSym).set(0);
+        //firebaseRef.child("users").child(userid).child("portfolio").child("stock").set(stockSym);
+        //firebaseRef.child("users").child(userid).child("portfolio").child("stock").child(stockSym).child("shares").set(shareNum);
+      }
+
+    //  firebase.database().ref().child("users").child(userid).child("test").set("Empty");
+
+    } else {
+      // No user is signed in.
+    }
+  });
+
+}
+
+
+
+
 
 
 function resetPassword()
@@ -234,6 +307,69 @@ function popPortfolio(){
 
   });
 }
+
+
+
+function unallocatedFunds()
+{
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+
+        var user = firebase.auth().currentUser;
+        var userid = user.uid;
+        var ufunds = document.getElementById("ufunds").value;
+
+
+      firebaseRef.child("users").child(userid).child("unallocatedFunds").set(ufunds);
+    } else {
+      // No user is signed in.
+    }
+  });
+
+}
+
+/*
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+//WORK ON THIS!!!!!!!!!!
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+function sellButtonWatchlist()
+{
+
+  if(document.getElementById("watchlist").rows.length > 2){
+    var user = firebase.auth().currentUser;
+    var userid = user.uid;
+    var td = event.target.parentNode;
+    var tr = td.parentNode;
+    var Row = tr.getAttribute("id");
+    var Cell = document.getElementById(Row).childNodes[0];
+    var Symbol;
+
+    if(Cell.firstChild){
+      Symbol = Cell.firstChild.value;
+    }
+    else{
+      Cell = document.getElementById(Row).childNodes[1];
+      Symbol = Cell.firstChild.value;
+    }
+  firebaseRef.child("users").child(userid).child("watchlist").child(Symbol).remove();
+
+  tr.parentNode.removeChild(tr);
+
+
+  }
+}
+*/
+
 
 
 

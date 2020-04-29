@@ -54,6 +54,9 @@ function signup()
           console.log(user);
           console.log(user.uid);
           writeNewUser(firebaseRef, user.uid);
+          writeNewUserWatchlist(firebaseRef, user.uid);
+          writeNewUserFunds(firebaseRef, user.uid);
+
 
           setTimeout(() => {window.location.assign('index.html');}, 2000);
         } else {
@@ -69,6 +72,26 @@ function writeNewUser(databaseReference, userId) {
     databaseReference.child("users").child(userId).child("portfolio").set("Empty");
 
 }
+
+
+//writes a new user to real-time database and sets up an empty portfolio
+function writeNewUserWatchlist(databaseReference, userId) {
+
+    databaseReference.child("users").child(userId).child("watchlist").set("Empty");
+
+}
+
+
+//writes a new user to real-time database and sets up an empty portfolio
+function writeNewUserFunds(databaseReference, userId) {
+
+    databaseReference.child("users").child(userId).child("unallocatedFunds").set("Empty");
+
+}
+
+
+
+
 
 
 function backButton()
