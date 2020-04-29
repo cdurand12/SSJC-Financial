@@ -115,9 +115,9 @@ function shareDistribution(weight, rownum)
 	shareProjection = (calcPortfolioValue() * weight)/document.getElementById("ask" + (rownum+1)).value;
 	var stockdifferential = shareProjection - document.getElementById("num" + (rownum+1)).value;
 	if(stockdifferential > 0){
-		return ("Buy " + stockdifferential + " shares");
+		return ("Buy " + stockdifferential.toFixed(3) + " shares");
 	}
-		return ("Sell " + (stockdifferential*-1) + " shares");
+		return ("Sell " + (stockdifferential*-1).toFixed(3) + " shares");
 	}
 	console.log("weight is zero");
 	return ("Sell " + document.getElementById("num" + (rownum+1)).value + " shares");
