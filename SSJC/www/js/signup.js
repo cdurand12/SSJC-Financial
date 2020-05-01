@@ -30,7 +30,7 @@ function signup()
 
       if (document.getElementById('signuppassword').value == document.getElementById('re_enter').value)
       {
-          alert("CORRECT password and re enter");
+          alert("Welcome!");
       } else {
           alert("INCORRECT TRY AGAIN");
       }
