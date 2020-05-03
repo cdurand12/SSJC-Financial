@@ -3,7 +3,9 @@
 
 <center>
 
-  <h1><b>SSJC Financial</b></h1>
+  <div style="background-color:white; border-radius: 20px; width: 300px">
+    <h1><b>SSJC Financial</b></h1>
+  </div>
     <title>SSJC Financial</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="index.css">
@@ -46,8 +48,9 @@
 
     <div style="background-color:white; border-radius: 25px; width: 400px">
     <label for="unallocated">Unallocated Funds:</label>
-    <input type="number" id="ufunds" onchange="unallocatedFunds()" placeholder="0"/>
+    <input type="number" id="ufunds" placeholder="0"/>
     </div>
+    <br>
 
     <div style="background-color:white;border-radius: 25px;width: 1300px;padding-bottom: 10px">
 
@@ -103,12 +106,14 @@
         </tr>
     </table>
   </div>
-    <img src="https://image.flaticon.com/icons/svg/149/149145.svg" height="30" width="30" vspace="5" onclick="addrow(0)" />
+    <img src="button-1.png" height="30" width="30" vspace="5" onclick="addrow(0)" />
 
     <br />
     <br />
     <br />
-    <h1>Watchlist</h1>
+    <div style="background-color:white; border-radius: 20px; width: 200px">
+      <h1>Watchlist</h1>
+    </div>
     <br />
     <div style="background-color:white; width:900px;border-radius: 25px;padding-bottom: 10px">
     <table id="watchlist">
@@ -120,7 +125,7 @@
         <th>Net Change</th>
         <th>Change %</th>
         <tr id="wrow1">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" onchange="iexconnect2(), writeNewPortfolioWatchlist()" placeholder="symbol" id="wstck1" class="stock" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" onchange="iexconnect2()" placeholder="symbol" id="wstck1" class="stock" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="wask1" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="wbid1" class="bid" /></td>
             <td><input disabled="true" placeholder="Size" id="wasize1" class="absize" /></td>
@@ -129,7 +134,7 @@
             <td><input disabled="true" type="text" placeholder="Change %" oninput="color('percent1')" id="wpercent1" class="perc" /></td>
         </tr>
         <tr id="wrow2">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" onchange="iexconnect2(), writeNewPortfolioWatchlist()" placeholder="symbol" id="wstck2" class="stock" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" onchange="iexconnect2()" placeholder="symbol" id="wstck2" class="stock" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="wask2" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="wbid2" class="bid" /></td>
             <td><input disabled="true" placeholder="Size" id="wasize2" class="absize" /></td>
@@ -139,7 +144,7 @@
             <td class="xb"><img src="img/redx.png" onclick="sellButton()" height="10" width="10" vspace="5" /></td>
         </tr>
         <tr id="wrow3">
-            <td><input oninput="this.value = this.value.toUpperCase()" type="text" onchange="iexconnect2(), writeNewPortfolioWatchlist()" placeholder="symbol" id="wstck3" class="stock" /></td>
+            <td><input oninput="this.value = this.value.toUpperCase()" type="text" onchange="iexconnect2()" placeholder="symbol" id="wstck3" class="stock" /></td>
             <td><input disabled="true" type="text" placeholder="Last Price" id="wask3" class="ask" /></td>
             <td><input disabled="true" type="text" placeholder="Bid Price" id="wbid3" class="bid" /></td>
             <td><input disabled="true" placeholder="Size" id="wasize3" class="absize" /></td>
@@ -150,7 +155,8 @@
         </tr>
     </table>
   </div>
-    <img src="https://image.flaticon.com/icons/svg/149/149145.svg" height="30" width="30" vspace="5" onclick="addrow(1)" />
+    <img src="button-1.png" height="30" width="30" vspace="5" onclick="addrow(1)" background="white" />
+
 
 
     <!-- The core Firebase JS SDK is always required and must be listed first DO NOT REMOVE!!!!-->

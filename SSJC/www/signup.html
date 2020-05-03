@@ -5,27 +5,33 @@
         <link rel="stylesheet" type="text/css" href="css/login.css">
 
     </head>
+    <link rel="stylesheet" type="text/css" href="css/signup.css">
     <body>
+      <center>
       <div class="wrapper fadeInDown">
         <div id="formContent">
           <!-- Tabs Titles -->
 
           <!-- Icon -->
           <div class="fadeIn first">
+            <h1>Sign Up Here</h1>
             <img src="https://image.flaticon.com/icons/svg/639/639365.svg" id="icon" alt="SSJC Financial" />
           </div>
 
 
-        <h2>Welcome to Sign Up Page!</h2>
+        <div id = "signupDiv">
 
-        <input type="text" id="signupemail" name="signupemail" placeholder="email"><br>
-        <input type="password" id="signuppassword" name="signuppassword" placeholder="Password"><br>
-        <input type="password" id="re_enter" name="re_enter" placeholder="Re-enter Password"><br><br>
+          <input type="text" id="signupemail" name="signupemail" placeholder="email" size="50"><br>
+          <input type="password" id="signuppassword" name="signuppassword" placeholder="Password"><br>
+          <input type="password" id="re_enter" name="re_enter" placeholder="Re-enter Password"><br><br>
 
-        <br>
+          <br>
 
-        <button onclick="signup()" id="signup_button">SIGN UP</button>
-        <button onclick="backButton()" id="signup_button">Back to Login</button>
+          <button onclick="signup()" id="signup_button">SIGN UP</button>
+          <button onclick="backButton()" id="signup_button">Back to Login</button>
+
+        </div>
+
 
 
 
@@ -40,6 +46,7 @@
 
         <script src="js/signup.js"></script>
 
+      </center>
     </body>
 
     </html>
