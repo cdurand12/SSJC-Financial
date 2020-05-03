@@ -5,6 +5,7 @@ var datasource;
 //Amount of data to be analyzed
 //1m, 3m, 6m, 1y, 5y
 var dataRange = "3m";
+var iextoken = "pk_aaaf0470cd674291bb61f7735ab4ce22";
 
 
 //Risk-free asset return %
@@ -14,7 +15,7 @@ var riskfreeAsset = .35;
 function histiexconnect(callbackfunc){
 	const xhttp = new XMLHttpRequest();
 	var stocks = getStocks();
-	var url = `https://cloud.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=${dataRange} &token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&chartCloseOnly=true`;
+	var url = `https://cloud.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=${dataRange} &token=${iextoken}&chartCloseOnly=true`;
 	//test URL
 	//url = `https://sandbox.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=1m &token=Tsk_4750097c011b4f69aa37b5bcaec5ebbe&chartCloseOnly=true`;
 
@@ -79,7 +80,13 @@ function analyze(inputs)
 	console.log("Covariance Matrix" + covMat2);
 
   var returns = averages;
-	var w = PortfolioAllocation.maximumSharpeRatioWeights(returns, covMat2, riskfreeAsset) ;
+	try{
+		var w = PortfolioAllocation.maximumSharpeRatioWeights(returns, covMat2, riskfreeAsset) ;
+	}
+	catch(err){
+		alert("No portfolio found with a positive return.");
+	}
+	//var w = PortfolioAllocation.maximumSharpeRatioWeights(returns, covMat2, riskfreeAsset) ;
 	console.log("WEIGHTS: " + w);
 	markowitzAlert(w);
 }
@@ -109,16 +116,22 @@ function calcPortfolioValue()
 
 function shareDistribution(weight, rownum)
 {
-	if(weight != 0){
+	if(weight != 0 || document.getElementById("num" + (rownum+1)).value > 0){
 	var shareProjection = 0;
 	console.log(weight + " , " + document.getElementById("ask" + (rownum+1)).value);
 	shareProjection = (calcPortfolioValue() * weight)/document.getElementById("ask" + (rownum+1)).value;
 	var stockdifferential = shareProjection - document.getElementById("num" + (rownum+1)).value;
+	if(stockdifferential < .001 && stockdifferential > -.001){
+		return("Hold");
+	}
 	if(stockdifferential > 0){
 		return ("Buy " + stockdifferential.toFixed(3) + " shares");
 	}
 		return ("Sell " + (stockdifferential*-1).toFixed(3) + " shares");
 	}
+	if(stockdifferential <= 0){
+		return ("Sell " + (stockdifferential*-1).toFixed(3) + " shares");
+	}
 	console.log("weight is zero");
-	return ("Sell " + document.getElementById("num" + (rownum+1)).value + " shares");
+	return ("Hold " + document.getElementById("num" + (rownum+1)).value + " shares");
 }

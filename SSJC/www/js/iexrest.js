@@ -276,7 +276,7 @@ function iexconnect2(){
   }
 
   var stocks = getStocks();
-  source = new EventSource(`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP${streamTimer}?token=pk_9b5669a51e754b99bf4f4824f3e2a4e4&symbols=${stocks}`);
+  source = new EventSource(`https://cloud-sse.iexapis.com/stable/stocksUSNoUTP${streamTimer}?token=${iextoken}&symbols=${stocks}`);
 
   //TEST SOURCE
   //source = new EventSource(`https://sandbox-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=Tsk_4750097c011b4f69aa37b5bcaec5ebbe&symbols=${stocks}`);
