@@ -15,6 +15,9 @@ var riskfreeAsset = .35;
 function histiexconnect(callbackfunc){
 	const xhttp = new XMLHttpRequest();
 	var stocks = getStocks();
+	if(document.getElementById("watchlistbox").checked){
+		stocks + getStocksArrayWatchlist();
+	}
 	var url = `https://cloud.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=${dataRange} &token=${iextoken}&chartCloseOnly=true`;
 	//test URL
 	//url = `https://sandbox.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=1m &token=Tsk_4750097c011b4f69aa37b5bcaec5ebbe&chartCloseOnly=true`;
@@ -94,10 +97,18 @@ function analyze(inputs)
 
 function markowitzAlert(weights){
 	var alertString = "To optimize your portfolio: \n";
-	for(var i = 0; i < weights.length; i++){
-		alertString += document.getElementById("stck" + (i+1)).value + " " + shareDistribution(weights[i], i) + "\n";
+	if(document.getElementById("wholeradio").checked){
+		for(var i = 0; i < weights.length; i++){
+			alertString += document.getElementById("stck" + (i+1)).value + " " + shareDistribution2(weights[i], i) + "\n";
+		}
+		alert(alertString);
 	}
-	alert(alertString);
+	else{
+		for(var i = 0; i < weights.length; i++){
+			alertString += document.getElementById("stck" + (i+1)).value + " " + shareDistribution(weights[i], i) + "\n";
+		}
+		alert(alertString);
+}
 }
 
 
@@ -131,6 +142,29 @@ function shareDistribution(weight, rownum)
 	}
 	if(stockdifferential <= 0){
 		return ("Sell " + (stockdifferential*-1).toFixed(3) + " shares");
+	}
+	console.log("weight is zero");
+	return ("Hold " + document.getElementById("num" + (rownum+1)).value + " shares");
+}
+
+
+function shareDistribution2(weight, rownum)
+{
+	if(weight != 0 || document.getElementById("num" + (rownum+1)).value > 0){
+	var shareProjection = 0;
+	console.log(weight + " , " + document.getElementById("ask" + (rownum+1)).value);
+	shareProjection = (calcPortfolioValue() * weight)/document.getElementById("ask" + (rownum+1)).value;
+	var stockdifferential = shareProjection - document.getElementById("num" + (rownum+1)).value;
+	if(stockdifferential < .001 && stockdifferential > -.001){
+		return("Hold");
+	}
+	if(stockdifferential > 0){
+		return ("Buy " + stockdifferential.toFixed(0) + " shares");
+	}
+		return ("Sell " + (stockdifferential*-1).toFixed(0) + " shares");
+	}
+	if(stockdifferential <= 0){
+		return ("Sell " + (stockdifferential*-1).toFixed(0) + " shares");
 	}
 	console.log("weight is zero");
 	return ("Hold " + document.getElementById("num" + (rownum+1)).value + " shares");
