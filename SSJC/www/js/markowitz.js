@@ -98,14 +98,20 @@ function analyze(inputs)
 function markowitzAlert(weights){
 	var alertString = "To optimize your portfolio: \n";
 	if(document.getElementById("wholeradio").checked){
-		for(var i = 0; i < weights.length; i++){
+		for(var i = 0; i < getStocksArray()[0].length; i++){
 			alertString += document.getElementById("stck" + (i+1)).value + " " + shareDistribution2(weights[i], i) + "\n";
+		}
+		for(var i = 0; i < weights.length - getStocksArray()[0].length; i++){
+			alertString += (shareDistribution2(weights[i + getStocksArray()[0].length], i + getStocksArray()[0].length) + "\n");
 		}
 		alert(alertString);
 	}
 	else{
-		for(var i = 0; i < weights.length; i++){
+		for(var i = 0; i < getStocksArray()[0].length; i++){
 			alertString += document.getElementById("stck" + (i+1)).value + " " + shareDistribution(weights[i], i) + "\n";
+		}
+		for(var i = 0; i < weights.length - getStocksArray()[0].length; i++){
+			alertString += (shareDistribution2(weights[i + getStocksArray()[0].length], i + getStocksArray()[0].length) + "\n");
 		}
 		alert(alertString);
 }
@@ -124,9 +130,44 @@ function calcPortfolioValue()
 	console.log(totalAcc);
   return totalAcc;
 }
+//Share analysis for partial shares
+//
+// function shareDistribution(weight, rownum)
+// {
+// 	if(weight != 0 || document.getElementById("num" + (rownum+1)).value > 0){
+// 	var shareProjection = 0;
+// 	console.log(weight + " , " + document.getElementById("ask" + (rownum+1)).value);
+// 	shareProjection = (calcPortfolioValue() * weight)/document.getElementById("ask" + (rownum+1)).value;
+// 	var stockdifferential = shareProjection - document.getElementById("num" + (rownum+1)).value;
+// 	if(stockdifferential < .001 && stockdifferential > -.001){
+// 		return("Hold");
+// 	}
+// 	if(stockdifferential > 0){
+// 		return ("Buy " + stockdifferential.toFixed(3) + " shares");
+// 	}
+// 		return ("Sell " + (stockdifferential*-1).toFixed(3) + " shares");
+// 	}
+// 	if(stockdifferential <= 0){
+// 		return ("Sell " + (stockdifferential*-1).toFixed(3) + " shares");
+// 	}
+// 	console.log("weight is zero");
+// 	return ("Hold " + document.getElementById("num" + (rownum+1)).value + " shares");
+// }
+
 
 function shareDistribution(weight, rownum)
 {
+	var stableLength = getStocksArray()[0].length;
+	if(rownum+1 > stableLength){
+		var windex = (rownum+1) - stableLength;
+		console.log(weight + " , " + document.getElementById("wask" + (windex)).value);
+		var shareProjection2 = 0;
+		shareProjection2 = (calcPortfolioValue() * weight)/document.getElementById("wask" + (windex)).value;
+		if(shareProjection2 > 0){
+			return(document.getElementById("wstck" + (windex)).value + "Buy " + shareProjection2.toFixed(3) + " shares");
+		}
+		return(document.getElementById("wstck" + (windex)).value + "Don't Buy Shares in Stock");
+	}
 	if(weight != 0 || document.getElementById("num" + (rownum+1)).value > 0){
 	var shareProjection = 0;
 	console.log(weight + " , " + document.getElementById("ask" + (rownum+1)).value);
@@ -148,8 +189,27 @@ function shareDistribution(weight, rownum)
 }
 
 
+
+
+
+
+
+//Share analysis for whole shares
+//
+
 function shareDistribution2(weight, rownum)
 {
+	var stableLength = getStocksArray()[0].length;
+	if(rownum+1 > stableLength){
+		var windex = (rownum+1) - stableLength;
+		console.log(weight + " , " + document.getElementById("wask" + (windex)).value);
+		var shareProjection2 = 0;
+		shareProjection2 = (calcPortfolioValue() * weight)/document.getElementById("wask" + (windex)).value;
+		if(shareProjection2 > 0){
+			return(document.getElementById("wstck" + (windex)).value + "Buy" + shareProjection2.toFixed(0) + " shares");
+		}
+		return(document.getElementById("wstck" + (windex)).value + "Don't Buy");
+	}
 	if(weight != 0 || document.getElementById("num" + (rownum+1)).value > 0){
 	var shareProjection = 0;
 	console.log(weight + " , " + document.getElementById("ask" + (rownum+1)).value);
