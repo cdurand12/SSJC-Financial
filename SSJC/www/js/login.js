@@ -283,11 +283,9 @@ function popPortfolio(){
       var userid = user.uid;
 
 
-
+      //Populates Stock list from database added to stock table
       firebaseRef.child("users").child(userid).child("portfolio").once('value').then(function(snapshot){
         var userPortfolio = (snapshot.toJSON());
-        console.log(userPortfolio);
-        //console.log(userPortfolio);
         if(userPortfolio != "Empty"){
         var i = 1;
         for(var key in userPortfolio){
@@ -300,6 +298,29 @@ function popPortfolio(){
           i++;
         }
       }
+      });
+
+      //Populates Watch list from database added to watchlist table
+      firebaseRef.child("users").child(userid).child("watchlist").once('value').then(function(snapshot){
+        var userWatchlist = (snapshot.toJSON());
+        if(userWatchlist != "Empty"){
+        var i = 1;
+        for(var key in userWatchlist){
+          if(i+1 >= document.getElementById("watchlist").rows.length)
+            addrow(1);
+          //console.log("Key: " + key);
+          document.getElementById("wstck" + i).value = key;
+          //console.log("Value: " + userPortfolio[key]);
+          i++;
+        }
+      }
+      });
+
+      //Populate unallocated funds from database
+      firebaseRef.child("users").child(userid).child("unallocatedFunds").once('value').then(function(snapshot){
+        var unallocatedFunds = (snapshot.toJSON());
+        console.log(unallocatedFunds);
+        document.getElementById("ufunds").value = unallocatedFunds;
       });
     } else {
       // No user is signed in.
@@ -376,7 +397,6 @@ function sellButtonWatchlist()
 
 
 function sellButton() {
-  console.log(document.getElementById("stocktable").rows.length);
   if(document.getElementById("stocktable").rows.length > 2){
       var user = firebase.auth().currentUser;
       var userid = user.uid;
@@ -385,7 +405,6 @@ function sellButton() {
       var Row = tr.getAttribute("id");
       var Cell = document.getElementById(Row).childNodes[0];
       var Symbol;
-      console.log(Cell);
 
       if(Cell.firstChild){
         Symbol = Cell.firstChild.value;
@@ -461,7 +480,6 @@ function sellButton() {
 }
 
 function watchlistDelete() {
-  console.log(document.getElementById("watchlist").rows.length);
   if(document.getElementById("watchlist").rows.length > 2){
       var user = firebase.auth().currentUser;
       var userid = user.uid;
@@ -470,7 +488,7 @@ function watchlistDelete() {
       var Row = tr.getAttribute("id");
       var Cell = document.getElementById(Row).childNodes[0];
       var Symbol;
-      console.log(Cell);
+
 
       if(Cell.firstChild){
         Symbol = Cell.firstChild.value;
@@ -481,7 +499,7 @@ function watchlistDelete() {
       }
 
       //Removes specified symbol from the database
-      if(Symbol!=""){firebaseRef.child("users").child(userid).child("portfolio").child(Symbol).remove();}
+      if(Symbol!=""){firebaseRef.child("users").child(userid).child("watchlist").child(Symbol).remove();}
       //Removes the line from the portfolio
       tr.parentNode.removeChild(tr);
 

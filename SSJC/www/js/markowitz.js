@@ -14,9 +14,10 @@ var riskfreeAsset = .35;
 //Grabs historic stock data from the past month for the stocks that are included in the user portfolio (not in the wishlist)
 function histiexconnect(callbackfunc){
 	const xhttp = new XMLHttpRequest();
-	var stocks = getStocks();
-	if(document.getElementById("watchlistbox").checked){
-		stocks + getStocksArrayWatchlist();
+	var stocks = getStocksArray()[0];
+	if(document.getElementById('watchlistbox').checked){
+		var wList = getStocksArrayWatchlist()
+		stocks += ("," + wList);
 	}
 	var url = `https://cloud.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=${dataRange} &token=${iextoken}&chartCloseOnly=true`;
 	//test URL
@@ -111,7 +112,7 @@ function markowitzAlert(weights){
 			alertString += document.getElementById("stck" + (i+1)).value + " " + shareDistribution(weights[i], i) + "\n";
 		}
 		for(var i = 0; i < weights.length - getStocksArray()[0].length; i++){
-			alertString += (shareDistribution2(weights[i + getStocksArray()[0].length], i + getStocksArray()[0].length) + "\n");
+			alertString += (shareDistribution(weights[i + getStocksArray()[0].length], i + getStocksArray()[0].length) + "\n");
 		}
 		alert(alertString);
 }
@@ -161,16 +162,15 @@ function shareDistribution(weight, rownum)
 	if(rownum+1 > stableLength){
 		var windex = (rownum+1) - stableLength;
 		console.log(weight + " , " + document.getElementById("wask" + (windex)).value);
-		var shareProjection2 = 0;
+		var shareProjection2 = 0.0;
 		shareProjection2 = (calcPortfolioValue() * weight)/document.getElementById("wask" + (windex)).value;
 		if(shareProjection2 > 0){
-			return(document.getElementById("wstck" + (windex)).value + "Buy " + shareProjection2.toFixed(3) + " shares");
+			return(document.getElementById("wstck" + (windex)).value + " Buy " + shareProjection2.toFixed(3) + " shares");
 		}
-		return(document.getElementById("wstck" + (windex)).value + "Don't Buy Shares in Stock");
+		return(document.getElementById("wstck" + (windex)).value + " Don't Buy Shares in Stock");
 	}
 	if(weight != 0 || document.getElementById("num" + (rownum+1)).value > 0){
 	var shareProjection = 0;
-	console.log(weight + " , " + document.getElementById("ask" + (rownum+1)).value);
 	shareProjection = (calcPortfolioValue() * weight)/document.getElementById("ask" + (rownum+1)).value;
 	var stockdifferential = shareProjection - document.getElementById("num" + (rownum+1)).value;
 	if(stockdifferential < .001 && stockdifferential > -.001){
@@ -206,9 +206,9 @@ function shareDistribution2(weight, rownum)
 		var shareProjection2 = 0;
 		shareProjection2 = (calcPortfolioValue() * weight)/document.getElementById("wask" + (windex)).value;
 		if(shareProjection2 > 0){
-			return(document.getElementById("wstck" + (windex)).value + "Buy" + shareProjection2.toFixed(0) + " shares");
+			return(document.getElementById("wstck" + (windex)).value + " Buy " + shareProjection2.toFixed(0) + " shares");
 		}
-		return(document.getElementById("wstck" + (windex)).value + "Don't Buy");
+		return(document.getElementById("wstck" + (windex)).value + " Don't Buy");
 	}
 	if(weight != 0 || document.getElementById("num" + (rownum+1)).value > 0){
 	var shareProjection = 0;
