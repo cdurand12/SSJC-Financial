@@ -227,5 +227,5 @@ function shareDistribution2(weight, rownum)
 		return ("Sell " + (stockdifferential*-1).toFixed(0) + " shares");
 	}
 	console.log("weight is zero");
-	return ("Hold " + document.getElementById("num" + (rownum+1)).value + " shares");
+	return ("Hold ");
 }
