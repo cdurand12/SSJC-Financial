@@ -9,14 +9,12 @@ var streamTimer = "1second";
 
 
 function addrow(table){
-  var rowNum = document.getElementById("stocktable").rows.length;
-  console.log(document.getElementById("stocktable").rows.length);
-  if(rowNum == 50){ return; }
-  else if(table == 0)
+  if(table == 0)
   {
+    var rowNum = document.getElementById("stocktable").rows.length;
+    if(rowNum == 50){ return; }
     var table = document.getElementById("stocktable");
     var row = table.insertRow(-1);
-    //rowNum = rowNum + 1;
     var text = "row" + rowNum.toString();
     row.setAttribute("id", text);
 
@@ -133,9 +131,10 @@ function addrow(table){
   }
   else if(table == 1)
   {
+    var rowNum = document.getElementById("watchlist").rows.length;
+    if(rowNum == 50){ return; }
     var table = document.getElementById("watchlist");
     var row = table.insertRow(-1);
-    rowNum = rowNum + 1;
     var text = "wrow" + rowNum.toString();
     row.setAttribute("id", text);
 
@@ -160,7 +159,7 @@ function addrow(table){
     var cell1 = document.createElement("input");
     cell1.setAttribute("oninput", "this.value = this.value.toUpperCase()");
     cell1.setAttribute("type", "text");
-    cell1.setAttribute("placeholder", text);
+    cell1.setAttribute("placeholder", "symbol");
     cell1.setAttribute("id", "wstck"+rowNum.toString());
     cell1.setAttribute("class", "stock");
     stck.appendChild(cell1);
@@ -208,7 +207,7 @@ function addrow(table){
     cpercent.appendChild(cell8);
     var xb = document.createElement("img");
     xb.setAttribute("src", "img/redx.png");
-    xb.setAttribute("onclick", "sellButton()");
+    xb.setAttribute("onclick", "watchlistDelete()");
     xb.setAttribute("height", "10");
     xb.setAttribute("width", "10");
     xb.setAttribute("vspace", "5");
@@ -251,23 +250,6 @@ function calcValue(asknumber)
   totalValue = Math.round(totalValue * 100 + Number.EPSILON) / 100;
   document.getElementById("ppr"+row).value = totalValue;
 }
-/*
-function deleterow(table) {
-  if(table == 0)
-  {
-    if(document.getElementById("stocktable").rows.length > 2){
-      document.getElementById("stocktable").deleteRow(-1);
-      rowNum = rowNum - 1;
-    }
-  }
-  else if(table == 1)
-  {
-    if(document.getElementById("watchlist").rows.length > 2){
-      document.getElementById("watchlist").deleteRow(-1);
-      rowNum = rowNum - 1;
-    }
-  }
-}*/
 
 function iexconnect2(){
   if(source != null && source.readyState !== 2){
@@ -299,7 +281,8 @@ function iexconnect2(){
                 var quote = JSON.parse(message)[0];
                 //console.log(quote);
                 //console.log(quote.symbol, "ask"+i, document.getElementById("stck" + i).value);
-                if(document.getElementById("stck" + i).value != "" && quote.symbol == document.getElementById("stck" + i).value){
+                if(quote == null){ return; }
+                if(document.getElementById("stck"+i).value != "" && quote.symbol == document.getElementById("stck" + i).value){
                   document.getElementById("ask" + i).value = quote.latestPrice;
                   calcValue("ask"+i);
                   document.getElementById("bid" + i).value = quote.iexBidPrice;

@@ -442,7 +442,8 @@ function sellButton() {
 
         var percenttd =$(this).find('input')[7];
         var $domObj8 = $(percenttd);
-        $domObj8.prop("id", "color(percent"+id+")");
+        $domObj8.prop("id", "percent"+id);
+        $domObj8.prop("oninput", "color(percent"+id+")");
 
         var valuetd =$(this).find('input')[8];
         var $domObj9 = $(valuetd);
@@ -451,6 +452,82 @@ function sellButton() {
         var pprtd =$(this).find('input')[9];
         var $domObj9 = $(pprtd);
         $domObj9.prop("id", "ppr"+id);
+
+        id++;
+    });
+  }
+
+
+}
+
+function watchlistDelete() {
+  console.log(document.getElementById("watchlist").rows.length);
+  if(document.getElementById("watchlist").rows.length > 2){
+      var user = firebase.auth().currentUser;
+      var userid = user.uid;
+      var td = event.target.parentNode;
+      var tr = td.parentNode;
+      var Row = tr.getAttribute("id");
+      var Cell = document.getElementById(Row).childNodes[0];
+      var Symbol;
+      console.log(Cell);
+
+      if(Cell.firstChild){
+        Symbol = Cell.firstChild.value;
+      }
+      else{
+        Cell = document.getElementById(Row).childNodes[1];
+        Symbol = Cell.firstChild.value;
+      }
+
+      //Removes specified symbol from the database
+      if(Symbol!=""){firebaseRef.child("users").child(userid).child("portfolio").child(Symbol).remove();}
+      //Removes the line from the portfolio
+      tr.parentNode.removeChild(tr);
+
+      //console.log(tr);
+
+
+    //RESETTING INDECIES OF IDS
+      var id=1;
+    // select all elements with id starting with "refItem", and loop
+    $("tr[id^=wrow]").each(function(item) {
+        // update the "id" properties
+        $(this).prop("id", "wrow"+id);
+        var stcktd =$(this).find('input')[0];
+        var $domObj1 = $(stcktd);
+        $domObj1.prop("id", "wstck"+id)
+        //console.log(stcktd);
+
+        var asktd =$(this).find('input')[1];
+        var $domObj3 = $(asktd);
+        $domObj3.prop("id", "wask"+id);
+
+        var bidtd =$(this).find('input')[2];
+        var $domObj4 = $(bidtd);
+        $domObj4.prop("id", "wbid"+id);
+
+        var asizetd =$(this).find('input')[3];
+        var $domObj5 = $(asizetd);
+        $domObj5.prop("id", "wasize"+id);
+
+        var bsizetd =$(this).find('input')[4];
+        var $domObj6 = $(bsizetd);
+        $domObj6.prop("id", "wbsize"+id);
+
+        var changetd =$(this).find('input')[5];
+        var $domObj7 = $(changetd);
+        $domObj7.prop("id", "wchange"+id);
+        $domObj7.prop("oninput", "color(wchange"+id+")");
+
+        var percenttd =$(this).find('input')[6];
+        var $domObj8 = $(percenttd);
+        $domObj8.prop("id", "wpercent"+id);
+        $domObj8.prop("oninput", "color(wpercent"+id+")");
+
+        var valuetd =$(this).find('input')[7];
+        var $domObj9 = $(valuetd);
+        $domObj9.prop("id", "value"+id);
 
         id++;
     });
