@@ -160,6 +160,7 @@ function addrow(table){
     cell1.setAttribute("oninput", "this.value = this.value.toUpperCase()");
     cell1.setAttribute("type", "text");
     cell1.setAttribute("placeholder", "symbol");
+    cell1.setAttribute("onchange", "iexconnect2()");
     cell1.setAttribute("id", "wstck"+rowNum.toString());
     cell1.setAttribute("class", "stock");
     stck.appendChild(cell1);
@@ -201,7 +202,7 @@ function addrow(table){
     cell8.setAttribute("disabled", "true");
     cell8.setAttribute("type", "text");
     cell8.setAttribute("placeholder", "Change %");
-    cell8.setAttribute("id", "wchange"+rowNum.toString());
+    cell8.setAttribute("id", "wpercent"+rowNum.toString());
     //cell8.setAttribute("oninput", ("color(\'" + text + "\')"))
     cell8.setAttribute("class", "perc");
     cpercent.appendChild(cell8);
@@ -318,6 +319,7 @@ function iexconnect2(){
                 for(var i = 1; i < document.getElementById("watchlist").rows.length; i++){
                   console.log("watchlist time");
                   var quote = JSON.parse(message)[0];
+                  if(quote == null){ return; }
                   if(document.getElementById("wstck"+i).value != "" && quote.symbol == document.getElementById("wstck"+i).value){
                     document.getElementById("wask" + i).value = quote.latestPrice;
                     document.getElementById("wbid" + i).value = quote.iexBidPrice;

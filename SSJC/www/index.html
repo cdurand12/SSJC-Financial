@@ -1,11 +1,10 @@
 <html>
 <head>
 
-<center>
-
-  <div style="background-color:white; border-radius: 20px; width: 300px">
-    <h1><b>SSJC Financial</b></h1>
-  </div>
+  <div style="overflow: hidden; "><center><div style="background-color:white; border-radius: 20px; width: 300px">
+    <p style="font-size:20pt; float:middle;"><b>SSJC Financial</b></p>
+  </div></center>
+  <div style="float: right;"><button id="submitbutton" align="right" type="button" onclick="logout()" class="logout" >Logout</button></div></div>
     <title>SSJC Financial</title>
     <meta charset="UTF-8" />
 	  <style type="text/css">
@@ -17,6 +16,8 @@
       table, th, td { text-align: left; border-bottom: 1px solid black; padding-top: 10px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px; }
   	  input { border: 1px solid white; }
       input:disabled { background-color: #ffffff; }
+      .logout { border: 1px solid #d4af37; width: 150px; height: 50px; background-color: white; cursor: pointer; border-radius: 8px; font-size: 20px; }
+      .logout:hover { background-color: #cfb53b; }
   	  .stock { width: 75px; text-transform: uppercase; }
   	  .num { width: 110px; }
   	  .ask { width: 125px; }
@@ -38,6 +39,7 @@
   </script>
 </head>
 <body>
+  <center>
   <input type="radio" id="partialradio" name="drone" value="partial" checked="checked">
   <label for="partial">Partial Share</label>
   <input type="radio" id="wholeradio" name="drone" value="whole">
@@ -50,7 +52,6 @@
 
     <br />
     <button id="submitbutton" type="button" onclick="histiexconnect(stockcallback)">Anaylze Me</button>
-    <button id="submitbutton" type="button" onclick="logout()">Logout</button>
 
     <br />
     <br>
@@ -115,7 +116,7 @@
         </tr>
     </table>
   </div>
-    <img src="button-1.png" height="30" width="30" vspace="5" onclick="addrow(0)" />
+    <img src="img/button-1.png" height="30" width="30" vspace="5" onclick="addrow(0)" />
 
     <br />
     <br />
@@ -164,7 +165,7 @@
         </tr>
     </table>
   </div>
-    <img src="button-1.png" height="30" width="30" vspace="5" onclick="addrow(1)" background="white" />
+    <img src="img/button-1.png" height="30" width="30" vspace="5" onclick="addrow(1)" background="white" />
 
 
 
