@@ -95,6 +95,23 @@ function login()
 
 }
 
+//Enter Listeners
+var input = document.getElementById("password");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("login_button").click();
+  }
+});
+
+var input = document.getElementById("email");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("login_button").click();
+  }
+});
+
 
 
 

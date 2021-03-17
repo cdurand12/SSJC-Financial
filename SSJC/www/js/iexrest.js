@@ -160,7 +160,7 @@ function addrow(table){
     cell1.setAttribute("oninput", "this.value = this.value.toUpperCase()");
     cell1.setAttribute("type", "text");
     cell1.setAttribute("placeholder", "symbol");
-    cell1.setAttribute("onchange", "iexconnect2()");
+    cell1.setAttribute("onchange", "iexconnect2(), writeNewPortfolioWatchlist()");
     cell1.setAttribute("id", "wstck"+rowNum.toString());
     cell1.setAttribute("class", "stock");
     stck.appendChild(cell1);

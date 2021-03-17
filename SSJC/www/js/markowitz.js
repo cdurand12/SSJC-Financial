@@ -6,19 +6,56 @@ var datasource;
 //1m, 3m, 6m, 1y, 5y
 var dataRange = "3m";
 var iextoken = "pk_aaaf0470cd674291bb61f7735ab4ce22";
+var riskfreeAsset = 0;
 
 
-//Risk-free asset return %
-var riskfreeAsset = .35;
+//Risk-free asset return rate
+function riskfreeconnect(callbackfunc){
+	const xhttp = new XMLHttpRequest();
+	var url = `https://cloud.iexapis.com/stable/data-points/market/DGS5?token=${iextoken}`;
+	xhttp.open("GET", url);
+	xhttp.send();
+
+	xhttp.onreadystatechange=function(){
+		if(xhttp.readyState === 4 & xhttp.status == 200){
+			callbackfunc(this);
+		}
+	}
+}
+
+function riskfreecallback(xhttp){
+	var jsonObj = JSON.parse(xhttp.responseText);
+	//console.log(jsonObj);
+	riskFreeAsset = jsonObj;
+}
+
+
+//Acquire current 5-year Treasury Bond Rate for Risk Free asset
+riskfreeconnect(riskfreecallback);
+
+
 
 //Grabs historic stock data from the past month for the stocks that are included in the user portfolio (not in the wishlist)
 function histiexconnect(callbackfunc){
 	const xhttp = new XMLHttpRequest();
 	var stocks = getStocksArray()[0];
+
 	if(document.getElementById('watchlistbox').checked){
-		var wList = getStocksArrayWatchlist()
+		var wList = getStocksArrayWatchlist();
 		stocks += ("," + wList);
 	}
+
+//Empty Portfolio/Watchlist Check
+	var watchCheck = getStocksArrayWatchlist();
+	//console.log(watchCheck.length);
+
+	if((stocks.length == 0 && !document.getElementById('watchlistbox').checked) || (stocks ===",," && document.getElementById('watchlistbox').checked && watchCheck.length == 2)){
+		alert("Portfolio is empty");
+		console.log(stocks);
+		return;
+	}
+	//console.log(stocks);
+//Historical Data URL
 	var url = `https://cloud.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=${dataRange} &token=${iextoken}&chartCloseOnly=true`;
 	//test URL
 	//url = `https://sandbox.iexapis.com/v1/stock/market/batch?types=chart&symbols=${stocks}&range=1m &token=Tsk_4750097c011b4f69aa37b5bcaec5ebbe&chartCloseOnly=true`;
