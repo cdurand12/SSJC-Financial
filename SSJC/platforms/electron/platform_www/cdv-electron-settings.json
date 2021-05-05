@@ -2,7 +2,7 @@
     "browserWindow": {
         "height": 900,
         "webPreferences":{
-            "devTools": true,
+            "devTools": false,
             "nodeIntegration": true
         },
         "width": 1400
