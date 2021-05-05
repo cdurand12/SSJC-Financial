@@ -116,8 +116,13 @@ function analyze(inputs)
 						// [0.0343476,0.02874874,0.0427563,0.02914176,0.02542657,0.01723737,0.04627027,0.0106553,0.31681584,0.01854318],
 						// [0.02249903,0.01336866,0.02057303,0.01640377,0.01284075,0.00723779,0.01926088,0.00760955,0.01854318,0.11079287]];
 	//var returns = [1.175,1.19,0.396,1.12,0.346,0.679,0.089,0.73,0.481,1.08];
-
-	var covMat2 = cov(variances);
+	try{
+		var covMat2 = cov(variances);
+	}
+	catch(err){
+		alert("A stock within your portfolio or watchlist has not been listed long enough to properly analyze. Please remove and try again.");
+		return;
+	}
 	console.log("Covariance Matrix" + covMat2);
 
   var returns = averages;
